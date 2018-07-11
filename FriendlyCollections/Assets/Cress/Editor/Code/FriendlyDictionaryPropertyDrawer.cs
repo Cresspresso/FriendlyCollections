@@ -1,0 +1,179 @@
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using Cress;
+using Void = Cress.Void;
+
+namespace CressEditor
+{
+	#region PersistentDictionaryData
+
+	/// <summary>
+	/// <see cref="PersistentData{TArgs}"/> for <see cref="FriendlyDictionaryPropertyDrawer"/>.
+	/// </summary>
+	public class PersistentDictionaryData : PersistentReorderableListData<Void>
+	{
+		#region Constants
+
+		/// <summary>
+		/// Property name of <see cref="FriendlyDictionary{TKey, TValue, TPair}.serialized"/>.
+		/// </summary>
+		protected override string fieldPathData { get { return "serialized"; } }
+
+		/// <summary>
+		/// Property name of <see cref="FriendlyDictionaryPair{TKey, TValue}.key"/>.
+		/// </summary>
+		private const string fieldPathPairKey = "key";
+
+		/// <summary>
+		/// Property name of <see cref="FriendlyDictionaryPair{TKey, TValue}.value"/>.
+		/// </summary>
+		private const string fieldPathPairValue = "value";
+
+		#endregion
+		#region Methods
+
+		/// <summary>
+		/// Overloaded method <see cref="PersistentReorderableListData{TDataArgs}.OnInitReorderableList"/>.
+		/// </summary>
+		protected override void OnInitReorderableList()
+		{
+			// Element
+			reorderableList.drawElementCallback = (rect, index, a, b) =>
+			{
+				SerializedProperty propPair = propData.GetArrayElementAtIndex(index);
+				SerializedProperty propKey = propPair.FindPropertyRelative(fieldPathPairKey);
+				SerializedProperty propValue = propPair.FindPropertyRelative(fieldPathPairValue);
+
+				rect = new Rect(rect.x, rect.y + 1, rect.width, rect.height - EditorGUIUtility.standardVerticalSpacing - 1);
+
+				float half = rect.width / 2;
+				float x;
+
+				Rect rectKeyLabel = new Rect(rect.x, rect.y, 26, rect.height);
+				x = rectKeyLabel.width + 2;
+				Rect rectKeyField = new Rect(rectKeyLabel.x + x, rect.y, half - x - 2, rect.height);
+				
+				Rect rectValueLabel = new Rect(rect.x + half, rect.y, 38, rect.height);
+				x = rectValueLabel.width + 2;
+				Rect rectValueField = new Rect(rectValueLabel.x + x, rect.y, half - x, rect.height);
+				
+				bool duplicate = CountKey(index, 0, index - 1) > 0;
+				if (duplicate)
+				{
+					GUIStyle style = new GUIStyle(EditorStyles.label);
+					style.normal.textColor = Color.red;
+
+					EditorGUI.LabelField(rectKeyLabel, new GUIContent(propKey.displayName, "Duplicate key."), style);
+					EditorGUI.LabelField(rectValueLabel, new GUIContent(propValue.displayName, "Duplicate key."), style);
+				}
+				else
+				{
+					EditorGUI.LabelField(rectKeyLabel, propKey.displayName);
+					EditorGUI.LabelField(rectValueLabel, propValue.displayName);
+				}
+
+				EditorGUI.PropertyField(rectKeyField, propKey, GUIContent.none, true);
+				EditorGUI.PropertyField(rectValueField, propValue, GUIContent.none, true);
+			};
+
+			// None Element
+			reorderableList.drawNoneElementCallback = (rect) =>
+			{
+				EditorGUI.LabelField(rect, "Dictionary is Empty");
+			};
+		}
+
+		/// <summary>
+		/// Compares the equality of two key properties.
+		/// <para>Override this method to compare complex and custom types.</para>
+		/// </summary>
+		/// <param name="propA">First key property.</param>
+		/// <param name="propB">Second key property.</param>
+		/// <returns><see langword="true"/> if the keys are equal.</returns>
+		protected virtual bool AreKeyProperitesEqual(SerializedProperty propA, SerializedProperty propB)
+		{
+			try
+			{
+				return object.Equals(propA.GetPropertyValue(), propB.GetPropertyValue());
+			}
+			catch (Exception e)
+			{
+				Debug.LogError("Friendly dictionary key type is not a primitive type. Try overloading AreKeyPropertiesEqual.");
+				Debug.LogException(e);
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Counts the number of times a certain key occurs in the serialized list.
+		/// </summary>
+		/// <param name="index">Index of the pair whose key we are comparing with.</param>
+		/// <param name="startIndex">Starting index to search from.</param>
+		/// <param name="endIndex">Index after which searching will stop.</param>
+		/// <returns>The number of times the key occurs.</returns>
+		private int CountKey(int index, int startIndex = 0, int endIndex = int.MaxValue)
+		{
+			if (reorderableList.count <= 0)
+				return 0;
+
+			SerializedProperty propKey = propData.GetArrayElementAtIndex(index).FindPropertyRelative(fieldPathPairKey);
+			return CountKey(propKey, startIndex, endIndex);
+		}
+
+		/// <summary>
+		/// Counts the number of times a certain key occurs in the serialized list.
+		/// </summary>
+		/// <param name="propKey">Key property to compare with.</param>
+		/// <param name="startIndex">Starting index to search from.</param>
+		/// <param name="endIndex">Index after which searching will stop.</param>
+		/// <returns>The number of times the key occurs.</returns>
+		private int CountKey(SerializedProperty propKey, int startIndex = 0, int endIndex = int.MaxValue)
+		{
+			int count = 0;
+			int arraySize = propData.arraySize;
+			for (int i = startIndex; i < arraySize && i <= endIndex; ++i)
+			{
+				SerializedProperty otherKey = propData.GetArrayElementAtIndex(i).FindPropertyRelative(fieldPathPairKey);
+				if (AreKeyProperitesEqual(propKey, otherKey))
+				{
+					++count;
+				}
+			}
+			return count;
+		}
+
+		#endregion
+	}
+
+	#endregion
+	#region FriendlyDictionaryPropertyDrawer
+
+	/// <summary>
+	/// <see cref="CustomPropertyDrawer"/> for <see cref="FriendlyDictionary"/>.
+	/// </summary>
+	[CustomPropertyDrawer(typeof(FriendlyDictionary), true)]
+	public class FriendlyDictionaryPropertyDrawer : FriendlyListPropertyDrawerBase<PersistentDictionaryData, Void>
+	{
+		#region Persistence
+
+		/// <summary>
+		/// Table of persistent data associated with properties.
+		/// </summary>
+		private static PersistenceTable<PersistentDictionaryData, Void> persistence = new PersistenceTable<PersistentDictionaryData, Void>();
+
+		/// <summary>
+		/// Gets persistent data associated with a property.
+		/// </summary>
+		/// <param name="property">The current property being drawn.</param>
+		protected override PersistentDictionaryData GetPersistentData(SerializedProperty property)
+		{
+			return persistence[property];
+		}
+
+		#endregion
+	}
+
+	#endregion
+}
