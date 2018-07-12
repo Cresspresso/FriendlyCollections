@@ -10,9 +10,9 @@ namespace CressEditor
 	#region PersistentDictionaryData
 
 	/// <summary>
-	/// <see cref="PersistentData{TArgs}"/> for <see cref="FriendlyDictionaryPropertyDrawer"/>.
+	/// <see cref="PersistentData"/> for <see cref="FriendlyDictionaryPropertyDrawer"/>.
 	/// </summary>
-	public class PersistentDictionaryData : PersistentReorderableListData<Void>
+	public class PersistentDictionaryData : PersistentReorderableListData
 	{
 		#region Constants
 
@@ -35,29 +35,47 @@ namespace CressEditor
 		#region Methods
 
 		/// <summary>
-		/// Overloaded method <see cref="PersistentReorderableListData{TDataArgs}.OnInitReorderableList"/>.
+		/// Overridden method <see cref="PersistentReorderableListData{TDataArgs}.OnInitReorderableList"/>.
 		/// </summary>
-		protected override void OnInitReorderableList()
+		protected override void InitReorderableList()
 		{
-			// Element
-			reorderableList.drawElementCallback = (rect, index, a, b) =>
+			base.InitReorderableList();
+
+			// Element Height
+			reorderableList.elementHeightCallback = (index) =>
 			{
+				if (reorderableList.count == 0)
+					return noneElementHeight;
+
 				SerializedProperty propPair = propData.GetArrayElementAtIndex(index);
 				SerializedProperty propKey = propPair.FindPropertyRelative(fieldPathPairKey);
 				SerializedProperty propValue = propPair.FindPropertyRelative(fieldPathPairValue);
 
-				rect = new Rect(rect.x, rect.y + 1, rect.width, rect.height - EditorGUIUtility.standardVerticalSpacing - 1);
+				return Mathf.Max(
+					EditorGUI.GetPropertyHeight(propKey, GUIContent.none, true),
+					EditorGUI.GetPropertyHeight(propValue, GUIContent.none, true)
+				) + elementSpacing;
+			};
 
-				float half = rect.width / 2;
+			// Draw Element
+			reorderableList.drawElementCallback = (position, index, a, b) =>
+			{
+				position = GetElementInnerRect(position);
+
+				SerializedProperty propPair = propData.GetArrayElementAtIndex(index);
+				SerializedProperty propKey = propPair.FindPropertyRelative(fieldPathPairKey);
+				SerializedProperty propValue = propPair.FindPropertyRelative(fieldPathPairValue);
+
+				float half = position.width / 2;
 				float x;
 
-				Rect rectKeyLabel = new Rect(rect.x, rect.y, 26, rect.height);
+				Rect rectKeyLabel = new Rect(position.x, position.y, 26, position.height);
 				x = rectKeyLabel.width + 2;
-				Rect rectKeyField = new Rect(rectKeyLabel.x + x, rect.y, half - x - 2, rect.height);
+				Rect rectKeyField = new Rect(rectKeyLabel.x + x, position.y, half - x - 2, position.height);
 				
-				Rect rectValueLabel = new Rect(rect.x + half, rect.y, 38, rect.height);
+				Rect rectValueLabel = new Rect(position.x + half, position.y, 38, position.height);
 				x = rectValueLabel.width + 2;
-				Rect rectValueField = new Rect(rectValueLabel.x + x, rect.y, half - x, rect.height);
+				Rect rectValueField = new Rect(rectValueLabel.x + x, position.y, half - x, position.height);
 				
 				bool duplicate = CountKey(index, 0, index - 1) > 0;
 				if (duplicate)
@@ -73,15 +91,15 @@ namespace CressEditor
 					EditorGUI.LabelField(rectKeyLabel, propKey.displayName);
 					EditorGUI.LabelField(rectValueLabel, propValue.displayName);
 				}
-
+				
 				EditorGUI.PropertyField(rectKeyField, propKey, GUIContent.none, true);
 				EditorGUI.PropertyField(rectValueField, propValue, GUIContent.none, true);
 			};
 
-			// None Element
-			reorderableList.drawNoneElementCallback = (rect) =>
+			// Draw None Element
+			reorderableList.drawNoneElementCallback = (position) =>
 			{
-				EditorGUI.LabelField(rect, "Dictionary is Empty");
+				EditorGUI.LabelField(position, "Dictionary is Empty");
 			};
 		}
 
@@ -100,7 +118,7 @@ namespace CressEditor
 			}
 			catch (Exception e)
 			{
-				Debug.LogError("Friendly dictionary key type is not a primitive type. Try overloading AreKeyPropertiesEqual.");
+				Debug.LogError("Friendly dictionary key type is not a primitive type. Try overriding AreKeyPropertiesEqual.");
 				Debug.LogException(e);
 				return false;
 			}
@@ -154,14 +172,14 @@ namespace CressEditor
 	/// <see cref="CustomPropertyDrawer"/> for <see cref="FriendlyDictionary"/>.
 	/// </summary>
 	[CustomPropertyDrawer(typeof(FriendlyDictionary), true)]
-	public class FriendlyDictionaryPropertyDrawer : FriendlyListPropertyDrawerBase<PersistentDictionaryData, Void>
+	public class FriendlyDictionaryPropertyDrawer : FriendlyListPropertyDrawerBase<PersistentDictionaryData>
 	{
 		#region Persistence
 
 		/// <summary>
 		/// Table of persistent data associated with properties.
 		/// </summary>
-		private static PersistenceTable<PersistentDictionaryData, Void> persistence = new PersistenceTable<PersistentDictionaryData, Void>();
+		private static PersistenceTable<PersistentDictionaryData> persistence = new PersistenceTable<PersistentDictionaryData>();
 
 		/// <summary>
 		/// Gets persistent data associated with a property.

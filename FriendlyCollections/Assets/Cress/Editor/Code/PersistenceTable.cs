@@ -14,8 +14,7 @@ namespace CressEditor
 	/// <summary>
 	/// Data associated with a <see cref="SerializedProperty"/> which should persist between multiple editor frames.
 	/// </summary>
-	/// <typeparam name="TArgs">Type of extra arguments suplied when resetting.</typeparam>
-	public class PersistentData<TArgs>
+	public class PersistentData
 	{
 		#region Fields
 
@@ -62,22 +61,13 @@ namespace CressEditor
 		/// Initializes this persistent data.
 		/// </summary>
 		/// <param name="property">The property this data is associated with.</param>
-		/// <param name="args">Arguments passed on to the <see cref="OnReset(TArgs)"/> method.</param>
-		public void Reset(SerializedProperty property, TArgs args)
+		public virtual void Reset(SerializedProperty property)
 		{
 			this.property = property;
 			serializedObject = property.serializedObject;
 
-			OnReset(args);
-
 			OnChange();
 		}
-
-		/// <summary>
-		/// Custom setup for this data.
-		/// </summary>
-		/// <param name="args">Arguments passed down from the containing <see cref="PersistenceTable{TData, TDataArgs}"/>.</param>
-		protected virtual void OnReset(TArgs args) { }
 
 		#endregion
 	}
@@ -88,33 +78,15 @@ namespace CressEditor
 	/// <summary>
 	/// Collection of <typeparamref name="TData"/> objects which are associated with <see cref="SerializedProperty"/>s.
 	/// </summary>
-	/// <typeparam name="TData">Type of <see cref="PersistentData{TArgs}"/> stored for each <see cref="SerializedProperty"/>.</typeparam>
-	/// <typeparam name="TDataArgs">Type of arguments supplied to the <see cref="TData.Reset(SerializedProperty, TDataArgs)"/> method.</typeparam>
-	public class PersistenceTable<TData, TDataArgs> where TData : PersistentData<TDataArgs>, new()
+	/// <typeparam name="TData">Type of <see cref="PersistentData"/> stored for each <see cref="SerializedProperty"/>.</typeparam>
+	public class PersistenceTable<TData> where TData : PersistentData, new()
 	{
 		#region Fields
 
 		/// <summary>
 		/// Dictionary of <see cref="SerializedProperty.propertyPath"/> keys and the data associated with the properties.
 		/// </summary>
-		private Dictionary<string, TData> persistence;
-
-		/// <summary>
-		/// Function which gets extra arguments to supply to a data object when it is reset.
-		/// </summary>
-		private Func<SerializedProperty, TData, TDataArgs> onGetArgs;
-
-		#endregion
-		#region Constructor
-
-		/// <summary>
-		/// Creates a <see cref="PersistenceTable{TData, TDataArgs}"/>.
-		/// </summary>
-		public PersistenceTable(Func<SerializedProperty, TData, TDataArgs> onGetArgs = null)
-		{
-			persistence = new Dictionary<string, TData>();
-			this.onGetArgs = onGetArgs;
-		}
+		private Dictionary<string, TData> persistence = new Dictionary<string, TData>();
 
 		#endregion
 		#region Indexer Property
@@ -142,13 +114,13 @@ namespace CressEditor
 					}
 					catch (NullReferenceException)
 					{
-						ResetData(data, property);
+						data.Reset(property);
 					}
 				}
 				else
 				{
 					data = new TData();
-					ResetData(data, property);
+					data.Reset(property);
 					persistence[key] = data;
 				}
 
@@ -160,17 +132,6 @@ namespace CressEditor
 
 		#endregion
 		#region Other Methods
-
-		/// <summary>
-		/// Resets a data object.
-		/// </summary>
-		/// <param name="data">The data object to reset.</param>
-		/// <param name="property">The property it is associated with.</param>
-		private void ResetData(TData data, SerializedProperty property)
-		{
-			TDataArgs args = onGetArgs != null ? onGetArgs(property, data) : default(TDataArgs);
-			data.Reset(property, args);
-		}
 
 		/// <summary>
 		/// Cleans up any expired data.

@@ -10,9 +10,22 @@ namespace CressEditor
 	/// <summary>
 	/// Base class for <see cref="PersistentListData"/> and <see cref="PersistentDictionaryData"/>.
 	/// </summary>
-	public abstract class PersistentReorderableListData<TDataArgs> : PersistentData<TDataArgs>
+	public abstract class PersistentReorderableListData : PersistentData
 	{
-		#region Overload Constants
+		#region Constants
+
+		protected const float elementPaddingTop = 1;
+		protected static float elementSpacing { get { return elementPaddingTop + EditorGUIUtility.standardVerticalSpacing; } }
+
+		protected static Rect GetElementInnerRect(Rect totalPosition)
+		{
+			return new Rect(totalPosition.x, totalPosition.y + elementPaddingTop, totalPosition.width, totalPosition.height - elementSpacing);
+		}
+
+		protected static float noneElementHeight { get { return EditorGUIUtility.singleLineHeight; } }
+
+		#endregion
+		#region Virtual Constants
 
 		/// <summary>
 		/// Relative property path to the serialized array/list property to display.
@@ -36,25 +49,28 @@ namespace CressEditor
 		#region Methods
 
 		/// <summary>
-		/// Overloaded method <see cref="PersistentData{TArgs}.OnReset(TArgs)"/>.
+		/// Overridden method <see cref="PersistentData.Reset(SerializedProperty)"/>.
 		/// </summary>
-		protected override void OnReset(TDataArgs args)
+		public override void Reset(SerializedProperty property)
 		{
+			base.Reset(property);
+
 			propData = property.FindPropertyRelative(fieldPathData);
+
 			InitReorderableList();
 		}
 
 		/// <summary>
 		/// Creates a friendly <see cref="ReorderableList"/> based on a property.
 		/// </summary>
-		protected void InitReorderableList()
+		protected virtual void InitReorderableList()
 		{
 			reorderableList = new ReorderableList(propData.serializedObject, propData, true, true, true, true);
 
-			// Footer
+			// Draw Footer
 			reorderableList.footerHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 
-			// Header
+			// Draw Header
 			reorderableList.headerHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 			reorderableList.drawHeaderCallback = (rect) =>
 			{
@@ -64,15 +80,25 @@ namespace CressEditor
 				property.isExpanded = EditorGUI.Foldout(rect, property.isExpanded, new GUIContent(property.isExpanded ? " " + property.displayName : property.displayName), true);
 			};
 
-			// Element
-			reorderableList.elementHeightCallback = (index) => EditorGUI.GetPropertyHeight(propData.GetArrayElementAtIndex(index), true) + 1 + EditorGUIUtility.standardVerticalSpacing;
-			reorderableList.drawElementCallback = (rect, index, a, b) =>
+			// Element Height
+			reorderableList.elementHeightCallback = (index) =>
 			{
-				rect = new Rect(rect.x, rect.y + 1, rect.width, rect.height - EditorGUIUtility.standardVerticalSpacing - 1);
-				EditorGUI.PropertyField(rect, propData.GetArrayElementAtIndex(index), new GUIContent("Element " + index.ToString()), true);
+				if (reorderableList.count == 0)
+					return noneElementHeight;
+
+				SerializedProperty propElement = propData.GetArrayElementAtIndex(index);
+
+				return EditorGUI.GetPropertyHeight(propElement, GUIContent.none, true) + elementSpacing;
 			};
 
-			// Add
+			// Draw Element
+			reorderableList.drawElementCallback = (position, index, a, b) =>
+			{
+				position = GetElementInnerRect(position);
+				EditorGUI.PropertyField(position, propData.GetArrayElementAtIndex(index), new GUIContent("Element " + index.ToString()), true);
+			};
+
+			// On Add
 			reorderableList.onAddCallback = (list) =>
 			{
 				if (list.index >= 0 && list.index < propData.arraySize - 1)
@@ -86,7 +112,7 @@ namespace CressEditor
 				}
 			};
 
-			// Remove
+			// On Remove
 			reorderableList.onCanRemoveCallback = (list) => propData.arraySize > 0;
 			reorderableList.onRemoveCallback = (list) =>
 			{
@@ -98,15 +124,7 @@ namespace CressEditor
 					list.index = propData.arraySize - 1;
 				}
 			};
-
-
-			OnInitReorderableList();
 		}
-
-		/// <summary>
-		/// Custom setup after reorderable list initialization.
-		/// </summary>
-		protected virtual void OnInitReorderableList() { }
 
 		#endregion
 	}
@@ -117,7 +135,7 @@ namespace CressEditor
 	/// <summary>
 	/// Base class for <see cref="FriendlyListPropertyDrawer"/> and <see cref="FriendlyDictionaryPropertyDrawer"/>.
 	/// </summary>
-	public abstract class FriendlyListPropertyDrawerBase<TData, TDataArgs> : PropertyDrawer where TData : PersistentReorderableListData<TDataArgs>
+	public abstract class FriendlyListPropertyDrawerBase<TData> : PropertyDrawer where TData : PersistentReorderableListData
 	{
 		#region Persistence
 
@@ -183,18 +201,18 @@ namespace CressEditor
 
 			EditorGUI.BeginProperty(position, GUIContent.none, property);
 
-			Rect rect = EditorGUI.IndentedRect(position);
+			position = EditorGUI.IndentedRect(position);
 
 			int oldIndent = EditorGUI.indentLevel;
 			EditorGUI.indentLevel = 0;
 
 			if (property.isExpanded)
 			{
-				data.reorderableList.DoList(rect);
+				data.reorderableList.DoList(position);
 			}
 			else
 			{
-				data.reorderableList.drawHeaderCallback.Invoke(rect);
+				data.reorderableList.drawHeaderCallback.Invoke(position);
 			}
 
 			EditorGUI.indentLevel = oldIndent;
@@ -209,9 +227,9 @@ namespace CressEditor
 	#region PersistentListData
 
 	/// <summary>
-	/// <see cref="PersistentData{TArgs}"/> for <see cref="FriendlyListPropertyDrawerBase"/>.
+	/// <see cref="PersistentData"/> for <see cref="FriendlyListPropertyDrawer"/>.
 	/// </summary>
-	public class PersistentListData : PersistentReorderableListData<Void>
+	public class PersistentListData : PersistentReorderableListData
 	{
 		/// <summary>
 		/// Name of field <see cref="FriendlyList{T}.data"/>.
@@ -226,14 +244,14 @@ namespace CressEditor
 	/// <see cref="CustomPropertyDrawer"/> for <see cref="FriendlyList"/>.
 	/// </summary>
 	[CustomPropertyDrawer(typeof(FriendlyList), true)]
-	public class FriendlyListPropertyDrawer : FriendlyListPropertyDrawerBase<PersistentListData, Void>
+	public class FriendlyListPropertyDrawer : FriendlyListPropertyDrawerBase<PersistentListData>
 	{
 		#region Persistence
 
 		/// <summary>
 		/// Table of persistent data associated with properties.
 		/// </summary>
-		private static PersistenceTable<PersistentListData, Void> persistence = new PersistenceTable<PersistentListData, Void>();
+		private static PersistenceTable<PersistentListData> persistence = new PersistenceTable<PersistentListData>();
 
 		/// <summary>
 		/// Gets persistent data associated with a property.

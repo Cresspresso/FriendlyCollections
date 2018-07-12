@@ -8,10 +8,14 @@ namespace CressExamples
 {
 	public class FriendlyDictionaryExample2 : MonoBehaviour
 	{
+		// Private field, drawn in the inspector.
 		[SerializeField]
 		private ObjObjDict m_objectMap;
 
+		// Public property exposing the deserialized data.
 		public Dictionary<GameObject, Transform> objectMap { get { return m_objectMap.data; } }
+
+
 
 		private void Start()
 		{

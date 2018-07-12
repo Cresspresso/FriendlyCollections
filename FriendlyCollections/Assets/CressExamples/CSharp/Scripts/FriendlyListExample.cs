@@ -6,12 +6,10 @@ using Cress;
 
 namespace CressExamples
 {
-	/// <summary>
-	/// Example script demonstrating how to implement and use <see cref="FriendlyList{T}"/>.
-	/// </summary>
+	// Example script demonstrating how to implement and use FriendlyList.
 	public class FriendlyListExample : MonoBehaviour
 	{
-		// Inspector Properties
+		// Private fields displayed in the inspector.
 
 		[SerializeField]
 		private StringList serializedList;
@@ -23,33 +21,27 @@ namespace CressExamples
 		private StringList[] nested;
 		
 
-		// Script Properties
-
+		// Public property exposing the deserialized data of the first list.
 		public List<string> list { get { return serializedList.data; } }
+		
 
-
-		// Methods
 
 		private void Start()
 		{
 			// Print out all items of the first list.
-			Debug.Log("Count: " + list.Count);
+			Debug.Log("Serialized List Count: " + list.Count);
 			for (int i = 0; i < list.Count; ++i)
 			{
 				Debug.LogFormat("[{0}]: {1}", i, list[i]);
 			}
 		}
 	}
-
-	/// <summary>
-	/// Example of implementing <see cref="FriendlyList{T]"/> for <see cref="string"/>.
-	/// </summary>
+	
+	// Example of implementing FriendlyList for string.
 	[Serializable]
 	public class StringList : FriendlyList<string> { }
-
-	/// <summary>
-	/// A struct of several <see cref="StringList"/>s, for layout demonstration.
-	/// </summary>
+	
+	// Struct to demonstrate nesting FriendlyLists is possible.
 	[Serializable]
 	public struct MyListStruct
 	{

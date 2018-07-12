@@ -8,13 +8,19 @@ namespace CressExamples
 {
 	public class FriendlyDictionaryExample : MonoBehaviour
 	{
+		// Friendly dictionary drawn in the inspector.
 		public StringIntDict friendlyDictionary;
-		public Dictionary<string, int> dictionary { get { return friendlyDictionary.data; } }
 
 		public MyDictStruct group;
 
+
+
 		private void Start()
 		{
+			// Alias the deserialized dictionary.
+			Dictionary<string, int> dictionary = friendlyDictionary.data;
+
+			// Print all entries.
 			Debug.Log("Dictionary Count: " + dictionary.Count);
 			foreach (var pair in dictionary)
 			{
@@ -23,12 +29,15 @@ namespace CressExamples
 		}
 	}
 
+	// Remove generic nature from the FriendlyDictionaryPair class.
 	[Serializable]
 	public class StringIntPair : FriendlyDictionaryPair<string, int> { }
 
+	// Remove generic nature from the FriendlyDictionary class.
 	[Serializable]
 	public class StringIntDict : FriendlyDictionary<string, int, StringIntPair> { }
 
+	// Struct to demonstrate that nested dictionaries are possible.
 	[Serializable]
 	public struct MyDictStruct
 	{

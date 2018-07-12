@@ -333,16 +333,14 @@ MonoBehaviour:
     serialized:
     - key: {fileID: 0}
       value: {fileID: 1677053293}
-    - key: {fileID: 282840810}
-      value: {fileID: 2064505113}
     - key: {fileID: 0}
       value: {fileID: 1677053293}
-    - key: {fileID: 170076733}
+    - key: {fileID: 0}
+      value: {fileID: 1677053293}
+    - key: {fileID: 282840810}
       value: {fileID: 170076735}
-    - key: {fileID: 1677053291}
+    - key: {fileID: 170076733}
       value: {fileID: 282840814}
-    - key: {fileID: 2064505111}
-      value: {fileID: 2064505113}
 --- !u!114 &1677053295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,13 +355,17 @@ MonoBehaviour:
   m_dictionary:
     serialized:
     - key:
-        a: 0
-        b: 
-      value: 0
+        alpha: me
+        beta: 42
+      value: 22
     - key:
-        a: 0
-        b: 
-      value: 0
+        alpha: me
+        beta: 42
+      value: 22
+    - key:
+        alpha: you
+        beta: 32
+      value: 127
 --- !u!1 &2064505111
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,8 +412,7 @@ MonoBehaviour:
       - ghgd
       - asdge
     gamma:
-      data:
-      - cxed
+      data: []
   nested:
   - data:
     - gads

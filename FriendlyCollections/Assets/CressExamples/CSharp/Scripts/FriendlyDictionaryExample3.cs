@@ -23,15 +23,16 @@ namespace CressExamples
 		}
 	}
 
+	// Complex type for a dictionary key.
 	[Serializable]
 	public struct FDE3KeyStruct
 	{
-		public int a;
-		public string b;
+		public string alpha;
+		public float beta;
 
 		public override string ToString()
 		{
-			return string.Format("({0}, {1})", a, b);
+			return string.Format("({0}, {1})", alpha, beta);
 		}
 	}
 
