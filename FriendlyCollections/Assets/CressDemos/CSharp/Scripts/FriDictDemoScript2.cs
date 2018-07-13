@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cress;
 
-namespace CressExamples
+namespace CressDemos
 {
-	public class FriendlyDictionaryExample2 : MonoBehaviour
+	public class FriDictDemoScript2 : MonoBehaviour
 	{
 		// Private field, drawn in the inspector.
 		[SerializeField]
@@ -19,20 +19,21 @@ namespace CressExamples
 
 		private void Start()
 		{
-			Debug.Log("Dictionary Count: " + objectMap.Count);
+			Debug.LogFormat(this, "Object Map Count: {0}", objectMap.Count);
 			foreach (var pair in objectMap)
 			{
-				Debug.LogFormat("{0}: {1}",
+				Debug.LogFormat(this, "{0}: {1}",
 					pair.Key ? pair.Key.name : "null",
 					pair.Value ? pair.Value.name : "null"
 				);
 			}
 		}
 	}
+	
+	// Friendly dictionary with GameObject as the key type, so we must use FriDictOfObjects.
+	[Serializable]
+	public class ObjObjDict : FriDictOfObjects<GameObject, Transform, ObjObjPair> { }
 
 	[Serializable]
-	public class ObjObjPair : FriendlyDictionaryPair<GameObject, Transform> { }
-
-	[Serializable]
-	public class ObjObjDict : FriendlyDictionary<GameObject, Transform, ObjObjPair> { }
+	public class ObjObjPair : FriDictPair<GameObject, Transform> { }
 }

@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cress;
 
-namespace CressExamples
+namespace CressDemos
 {
-	public class FriendlyDictionaryExample : MonoBehaviour
+	// Demo script.
+	public class FriDictDemoScript1 : MonoBehaviour
 	{
 		// Friendly dictionary drawn in the inspector.
 		public StringIntDict friendlyDictionary;
@@ -21,21 +22,21 @@ namespace CressExamples
 			Dictionary<string, int> dictionary = friendlyDictionary.data;
 
 			// Print all entries.
-			Debug.Log("Dictionary Count: " + dictionary.Count);
+			Debug.LogFormat(this, "Friendly Dictionary Count: {0}", dictionary.Count);
 			foreach (var pair in dictionary)
 			{
-				Debug.LogFormat("{0}: {1}", pair.Key, pair.Value);
+				Debug.LogFormat(this, "{0}: {1}", pair.Key, pair.Value);
 			}
 		}
 	}
 
-	// Remove generic nature from the FriendlyDictionaryPair class.
+	// Serializable attribute to remove generic nature from the FriDictPair class.
 	[Serializable]
-	public class StringIntPair : FriendlyDictionaryPair<string, int> { }
+	public class StringIntPair : FriDictPair<string, int> { }
 
-	// Remove generic nature from the FriendlyDictionary class.
+	// Serializable attribut to remove generic nature from the FriDict class.
 	[Serializable]
-	public class StringIntDict : FriendlyDictionary<string, int, StringIntPair> { }
+	public class StringIntDict : FriDict<string, int, StringIntPair> { }
 
 	// Struct to demonstrate that nested dictionaries are possible.
 	[Serializable]

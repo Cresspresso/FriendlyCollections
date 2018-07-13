@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEditor;
 using Cress;
 using CressEditor;
-using CressExamples;
+using CressDemos;
 
-namespace CressEditorExamples
+namespace CressDemosEditor
 {
-	public class FDE3PersistentData : PersistentDictionaryData
+	// Persistent data with overridden key equality method.
+	public class FDDemo3DictPData : FriDictPData
 	{
 		// Function used to compare two key properties. Used when drawing a friendly dictionary pair.
 		protected override bool AreKeyProperitesEqual(SerializedProperty propA, SerializedProperty propB)
@@ -19,20 +20,20 @@ namespace CressEditorExamples
 	}
 	
 	// Custom property drawer for a custom friendly dictionary using a custom persistent data class.
-	[CustomPropertyDrawer(typeof(FDE3Dict))]
-	public class FDE3DictPropertyDrawer : FriendlyListPropertyDrawerBase<FDE3PersistentData>
+	[CustomPropertyDrawer(typeof(FDDemo3Dict))]
+	public class FDDemo3DictPropertyDrawer : ReorderableListPropertyDrawer<FDDemo3DictPData>
 	{
-		private static PersistenceTable<FDE3PersistentData> persistence = new PersistenceTable<FDE3PersistentData>();
+		private static PersistenceTable<FDDemo3DictPData> persistence = new PersistenceTable<FDDemo3DictPData>();
 
-		protected override FDE3PersistentData GetPersistentData(SerializedProperty property)
+		protected override FDDemo3DictPData GetPersistentData(SerializedProperty property)
 		{
 			return persistence[property];
 		}
 	}
 	
 	// Custom property drawer for FDE3KeyStruct.
-	[CustomPropertyDrawer(typeof(FDE3KeyStruct))]
-	public class FDE3PairPropertyDrawer : PropertyDrawer
+	[CustomPropertyDrawer(typeof(FDDemo3KeyStruct))]
+	public class FDDemo3KeyStructPropertyDrawer : PropertyDrawer
 	{
 		// Gets the height of this property drawer.
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)

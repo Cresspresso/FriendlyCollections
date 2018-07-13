@@ -19,14 +19,14 @@ namespace CressEditor
 		#region Fields
 
 		/// <summary>
-		/// Serialized object of the property this data relates to.
-		/// </summary>
-		public SerializedObject serializedObject { get; private set; }
-
-		/// <summary>
 		/// Property this data relates to.
 		/// </summary>
 		public SerializedProperty property { get; private set; }
+
+		/// <summary>
+		/// Serialized object of the property this data relates to.
+		/// </summary>
+		public SerializedObject serializedObject { get { return property.serializedObject; } }
 
 		/// <summary>
 		/// Moment in time when the <see cref="OnChange"/> method was last called.
@@ -61,10 +61,13 @@ namespace CressEditor
 		/// Initializes this persistent data.
 		/// </summary>
 		/// <param name="property">The property this data is associated with.</param>
+		/// <param name="callback">
+		/// Action to do after the reset.
+		/// First parameter is this object.
+		/// </param>
 		public virtual void Reset(SerializedProperty property)
 		{
 			this.property = property;
-			serializedObject = property.serializedObject;
 
 			OnChange();
 		}
@@ -89,14 +92,19 @@ namespace CressEditor
 		private Dictionary<string, TData> persistence = new Dictionary<string, TData>();
 
 		#endregion
-		#region Indexer Property
+		#region GetData Method
 
 		/// <summary>
 		/// Gets the persistent data associated with a property.
 		/// </summary>
 		/// <param name="property">The current property.</param>
+		/// <param name="onResetCallback">
+		/// Action to do with data when it is reset.
+		/// First parameter is the data object that was reset.
+		/// </param>
 		/// <returns>The persistent data associated with the property.</returns>
-		public TData this[SerializedProperty property] {
+		public TData this[SerializedProperty property]
+		{
 			get
 			{
 				TData data;
@@ -105,6 +113,7 @@ namespace CressEditor
 				{
 					data = persistence[key];
 					data.OnChange();
+
 
 					// if old serializedObject has been disposed, reset data.
 					try
@@ -138,10 +147,7 @@ namespace CressEditor
 		/// </summary>
 		private void Clean()
 		{
-			foreach (var k in (from p in persistence where p.Value.hasExpired select p.Key).ToArray())
-			{
-				persistence.Remove(k);
-			}
+			persistence.RemoveAllEntries(p => p.Value.hasExpired);
 		}
 
 		#endregion

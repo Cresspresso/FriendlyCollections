@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cress;
 
-namespace CressExamples
+namespace CressDemos
 {
 	// Example script demonstrating how to implement and use FriendlyList.
-	public class FriendlyListExample : MonoBehaviour
+	public class FriListDemoScript : MonoBehaviour
 	{
 		// Private fields displayed in the inspector.
 
@@ -29,17 +29,17 @@ namespace CressExamples
 		private void Start()
 		{
 			// Print out all items of the first list.
-			Debug.Log("Serialized List Count: " + list.Count);
+			Debug.LogFormat(this, "Serialized List Count: {0}", list.Count);
 			for (int i = 0; i < list.Count; ++i)
 			{
-				Debug.LogFormat("[{0}]: {1}", i, list[i]);
+				Debug.LogFormat(this, "[{0}]: {1}", i, list[i]);
 			}
 		}
 	}
-	
-	// Example of implementing FriendlyList for string.
+
+	// Implementing FriList for string elements.
 	[Serializable]
-	public class StringList : FriendlyList<string> { }
+	public class StringList : FriList<string> { }
 	
 	// Struct to demonstrate nesting FriendlyLists is possible.
 	[Serializable]

@@ -11,11 +11,11 @@ namespace CressEditor
 	{
 		/// <summary>
 		/// Gets the value of a <see cref="SerializedProperty"/>. Does not work for complex types, e.g. arrays.
-		/// <para>Note: <see cref="SerializedPropertyType.ExposedReference"/> and <see cref="SerializedPropertyType.ObjectReference"/> return <see cref="SerializedProperty.objectReferenceInstanceIDValue"/>.</para>
 		/// </summary>
 		/// <param name="property">Property to get the value of.</param>
 		/// <returns>Value stored in the property.</returns>
 		/// <exception cref="Exception">Property type is not primitive.</exception>
+		/// <exception cref="NotImplementedException">This function has not been implemented for that possibly primitive property type.</exception>
 		public static object GetPropertyValue(this SerializedProperty property)
 		{
 			switch (property.propertyType)
@@ -44,7 +44,7 @@ namespace CressEditor
 					return property.enumValueIndex;
 
 				case SerializedPropertyType.ExposedReference:
-					return property.objectReferenceInstanceIDValue;
+					return property.exposedReferenceValue;
 
 				case SerializedPropertyType.FixedBufferSize:
 					throw new NotImplementedException("Cannot extract data from FixedBufferSize serialized property."); // TODO
@@ -63,7 +63,7 @@ namespace CressEditor
 					throw new NotImplementedException("Cannot extract data from LayerMask serialized property."); // TODO
 
 				case SerializedPropertyType.ObjectReference:
-					return property.objectReferenceInstanceIDValue;
+					return property.objectReferenceValue;
 
 				case SerializedPropertyType.Quaternion:
 					return property.quaternionValue;

@@ -3,31 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Cress;
-using Void = Cress.Void;
 
 namespace CressEditor
 {
-	#region PersistentDictionaryData
+	#region FriDictPData
 
 	/// <summary>
-	/// <see cref="PersistentData"/> for <see cref="FriendlyDictionaryPropertyDrawer"/>.
+	/// <see cref="PersistentData"/> for <see cref="FriDictPropertyDrawer"/>.
 	/// </summary>
-	public class PersistentDictionaryData : PersistentReorderableListData
+	public class FriDictPData : ReorderableListPData
 	{
 		#region Constants
 
 		/// <summary>
-		/// Property name of <see cref="FriendlyDictionary{TKey, TValue, TPair}.serialized"/>.
+		/// Property name of <see cref="FriDict{TKey, TValue, TPair}.serialized"/>.
 		/// </summary>
 		protected override string fieldPathData { get { return "serialized"; } }
 
 		/// <summary>
-		/// Property name of <see cref="FriendlyDictionaryPair{TKey, TValue}.key"/>.
+		/// Property name of <see cref="FriDictPair{TKey, TValue}.key"/>.
 		/// </summary>
 		private const string fieldPathPairKey = "key";
 
 		/// <summary>
-		/// Property name of <see cref="FriendlyDictionaryPair{TKey, TValue}.value"/>.
+		/// Property name of <see cref="FriDictPair{TKey, TValue}.value"/>.
 		/// </summary>
 		private const string fieldPathPairValue = "value";
 
@@ -35,7 +34,7 @@ namespace CressEditor
 		#region Methods
 
 		/// <summary>
-		/// Overridden method <see cref="PersistentReorderableListData{TDataArgs}.OnInitReorderableList"/>.
+		/// Overridden method <see cref="ReorderableListPData{TDataArgs}.OnInitReorderableList"/>.
 		/// </summary>
 		protected override void InitReorderableList()
 		{
@@ -166,26 +165,68 @@ namespace CressEditor
 	}
 
 	#endregion
-	#region FriendlyDictionaryPropertyDrawer
+	#region FriDictPropertyDrawer
 
 	/// <summary>
-	/// <see cref="CustomPropertyDrawer"/> for <see cref="FriendlyDictionary"/>.
+	/// <see cref="CustomPropertyDrawer"/> for <see cref="FriDict"/>.
 	/// </summary>
-	[CustomPropertyDrawer(typeof(FriendlyDictionary), true)]
-	public class FriendlyDictionaryPropertyDrawer : FriendlyListPropertyDrawerBase<PersistentDictionaryData>
+	[CustomPropertyDrawer(typeof(FriDict), true)]
+	public class FriDictPropertyDrawer : ReorderableListPropertyDrawer<FriDictPData>
 	{
 		#region Persistence
 
 		/// <summary>
 		/// Table of persistent data associated with properties.
 		/// </summary>
-		private static PersistenceTable<PersistentDictionaryData> persistence = new PersistenceTable<PersistentDictionaryData>();
+		private static PersistenceTable<FriDictPData> persistence = new PersistenceTable<FriDictPData>();
 
 		/// <summary>
 		/// Gets persistent data associated with a property.
 		/// </summary>
 		/// <param name="property">The current property being drawn.</param>
-		protected override PersistentDictionaryData GetPersistentData(SerializedProperty property)
+		protected override FriDictPData GetPersistentData(SerializedProperty property)
+		{
+			return persistence[property];
+		}
+
+		#endregion
+	}
+
+	#endregion
+	#region FriDictOfObjectsPData
+
+	/// <summary>
+	/// <see cref="PersistentData"/> for <see cref="FriDictOfObjectsPropertyDrawer"/>.
+	/// </summary>
+	public class FriDictOfObjectsPData : FriDictPData
+	{
+		protected override bool AreKeyProperitesEqual(SerializedProperty propA, SerializedProperty propB)
+		{
+			return propA.objectReferenceInstanceIDValue == propB.objectReferenceInstanceIDValue;
+		}
+	}
+
+	#endregion
+	#region FriDictOfObjectsPropertyDrawer
+	
+	/// <summary>
+	/// Friendly property drawer for <see cref="FriDictOfObjects{TKey, TValue, TPair}"/>.
+	/// <para>Must be instantiated with the <see cref="CustomPropertyDrawer"/> attribute.</para>
+	/// </summary>
+	public class FriDictOfObjectsPropertyDrawer : ReorderableListPropertyDrawer<FriDictOfObjectsPData>
+	{
+		#region Persistence
+
+		/// <summary>
+		/// Table of persistent data associated with properties.
+		/// </summary>
+		private static PersistenceTable<FriDictOfObjectsPData> persistence = new PersistenceTable<FriDictOfObjectsPData>();
+
+		/// <summary>
+		/// Gets persistent data associated with a property.
+		/// </summary>
+		/// <param name="property">The current property being drawn.</param>
+		protected override FriDictOfObjectsPData GetPersistentData(SerializedProperty property)
 		{
 			return persistence[property];
 		}

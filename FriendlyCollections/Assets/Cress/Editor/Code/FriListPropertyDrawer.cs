@@ -5,13 +5,21 @@ using Cress;
 
 namespace CressEditor
 {
-	#region PersistentReorderableListData
+	#region ReorderableListPData
 
 	/// <summary>
-	/// Base class for <see cref="PersistentListData"/> and <see cref="PersistentDictionaryData"/>.
+	/// Base class for <see cref="FriListPData"/> and <see cref="FriDictPData"/>.
 	/// </summary>
-	public abstract class PersistentReorderableListData : PersistentData
+	public abstract class ReorderableListPData : PersistentData
 	{
+		#region Virtual Constants
+
+		/// <summary>
+		/// Relative property path to the serialized array/list property to display.
+		/// </summary>
+		protected virtual string fieldPathData { get { return "data"; } }
+
+		#endregion
 		#region Constants
 
 		protected const float elementPaddingTop = 1;
@@ -23,14 +31,6 @@ namespace CressEditor
 		}
 
 		protected static float noneElementHeight { get { return EditorGUIUtility.singleLineHeight; } }
-
-		#endregion
-		#region Virtual Constants
-
-		/// <summary>
-		/// Relative property path to the serialized array/list property to display.
-		/// </summary>
-		protected virtual string fieldPathData { get { return "data"; } }
 
 		#endregion
 		#region Fields
@@ -45,6 +45,11 @@ namespace CressEditor
 		/// </summary>
 		public ReorderableList reorderableList;
 
+		/// <summary>
+		/// If true, the list will be drawn. If false, only the display label will be drawn.
+		/// </summary>
+		public bool isExpanded;
+
 		#endregion
 		#region Methods
 
@@ -56,6 +61,8 @@ namespace CressEditor
 			base.Reset(property);
 
 			propData = property.FindPropertyRelative(fieldPathData);
+			
+			property.isExpanded = isExpanded;
 
 			InitReorderableList();
 		}
@@ -67,17 +74,15 @@ namespace CressEditor
 		{
 			reorderableList = new ReorderableList(propData.serializedObject, propData, true, true, true, true);
 
-			// Draw Footer
-			reorderableList.footerHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-
 			// Draw Header
 			reorderableList.headerHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-			reorderableList.drawHeaderCallback = (rect) =>
+			reorderableList.drawHeaderCallback = (position) =>
 			{
+				string displayName = property.displayName;
 				float h = EditorGUIUtility.standardVerticalSpacing;
-				float left = property.isExpanded ? -6 : 0;
-				rect = new Rect(rect.x + left, rect.y + h / 2, rect.width - left, rect.height - h);
-				property.isExpanded = EditorGUI.Foldout(rect, property.isExpanded, new GUIContent(property.isExpanded ? " " + property.displayName : property.displayName), true);
+				float left = isExpanded ? -6 : 0;
+				position = new Rect(position.x + left, position.y + h / 2, position.width - left, position.height - h);
+				isExpanded = EditorGUI.Foldout(position, isExpanded, new GUIContent(isExpanded ? " " + displayName : displayName), true);
 			};
 
 			// Element Height
@@ -130,12 +135,12 @@ namespace CressEditor
 	}
 
 	#endregion
-	#region FriendlyListPropertyDrawerBase
+	#region ReorderableListPropertyDrawer
 
 	/// <summary>
-	/// Base class for <see cref="FriendlyListPropertyDrawer"/> and <see cref="FriendlyDictionaryPropertyDrawer"/>.
+	/// Base class for <see cref="FriListPropertyDrawer"/> and <see cref="FriDictPropertyDrawer"/>.
 	/// </summary>
-	public abstract class FriendlyListPropertyDrawerBase<TData> : PropertyDrawer where TData : PersistentReorderableListData
+	public abstract class ReorderableListPropertyDrawer<TData> : PropertyDrawer where TData : ReorderableListPData
 	{
 		#region Persistence
 
@@ -168,23 +173,10 @@ namespace CressEditor
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
 			Prepare(property);
-
-			if (property.isExpanded)
+			
+			if (data.isExpanded)
 			{
-				float height = data.reorderableList.headerHeight + data.reorderableList.footerHeight;
-				int size = data.propData.arraySize;
-				if (size > 0)
-				{
-					for (int i = 0; i < size; ++i)
-					{
-						height += data.reorderableList.elementHeightCallback.Invoke(i);
-					}
-				}
-				else
-				{
-					height += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing * 2.5f;
-				}
-				return height;
+				return data.reorderableList.GetHeight();
 			}
 			else
 			{
@@ -205,8 +197,8 @@ namespace CressEditor
 
 			int oldIndent = EditorGUI.indentLevel;
 			EditorGUI.indentLevel = 0;
-
-			if (property.isExpanded)
+			
+			if (data.isExpanded)
 			{
 				data.reorderableList.DoList(position);
 			}
@@ -220,44 +212,53 @@ namespace CressEditor
 			EditorGUI.EndProperty();
 		}
 
+		/// <summary>
+		/// Unity script event. (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.CanCacheInspectorGUI.html">Link to Docs</a>)
+		/// </summary>
+		public override bool CanCacheInspectorGUI(SerializedProperty property)
+		{
+			// List has animations, and foldout height toggles, so don't cache.
+			return false;
+		}
+
 		#endregion
 	}
 
 	#endregion
-	#region PersistentListData
+	#region FriListPData
 
 	/// <summary>
-	/// <see cref="PersistentData"/> for <see cref="FriendlyListPropertyDrawer"/>.
+	/// <see cref="PersistentData"/> for <see cref="FriListPropertyDrawer"/>.
 	/// </summary>
-	public class PersistentListData : PersistentReorderableListData
+	public class FriListPData : ReorderableListPData
 	{
 		/// <summary>
-		/// Name of field <see cref="FriendlyList{T}.data"/>.
+		/// Name of field <see cref="FriList{T}.data"/>.
 		/// </summary>
 		protected override string fieldPathData { get { return "data"; } }
 	}
 
 	#endregion
-	#region FriendlyListPropertyDrawer
+	#region FriListPropertyDrawer
 
 	/// <summary>
-	/// <see cref="CustomPropertyDrawer"/> for <see cref="FriendlyList"/>.
+	/// <see cref="CustomPropertyDrawer"/> for <see cref="FriList"/>.
 	/// </summary>
-	[CustomPropertyDrawer(typeof(FriendlyList), true)]
-	public class FriendlyListPropertyDrawer : FriendlyListPropertyDrawerBase<PersistentListData>
+	[CustomPropertyDrawer(typeof(FriList), true)]
+	public class FriListPropertyDrawer : ReorderableListPropertyDrawer<FriListPData>
 	{
 		#region Persistence
 
 		/// <summary>
 		/// Table of persistent data associated with properties.
 		/// </summary>
-		private static PersistenceTable<PersistentListData> persistence = new PersistenceTable<PersistentListData>();
+		private static PersistenceTable<FriListPData> persistence = new PersistenceTable<FriListPData>();
 
 		/// <summary>
 		/// Gets persistent data associated with a property.
 		/// </summary>
 		/// <param name="property">The current property being drawn.</param>
-		protected override PersistentListData GetPersistentData(SerializedProperty property)
+		protected override FriListPData GetPersistentData(SerializedProperty property)
 		{
 			return persistence[property];
 		}
