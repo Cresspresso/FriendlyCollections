@@ -18,7 +18,7 @@ namespace CressDemos
 
 		private void Start()
 		{
-			// Alias the deserialized dictionary for this frame.
+			// Alias the deserialized dictionary.
 			Dictionary<string, int> dictionary = friendlyDictionary.data;
 
 			// Print all entries.
@@ -30,9 +30,13 @@ namespace CressDemos
 		}
 	}
 
+	// Serializable attribute to remove generic nature from the FriDictPair class.
+	[Serializable]
+	public class StringIntPair : FriDictPair<string, int> { }
+
 	// Serializable attribut to remove generic nature from the FriDict class.
 	[Serializable]
-	public class StringIntDict : FriDict<string, int> { }
+	public class StringIntDict : FriDict<string, int, StringIntPair> { }
 
 	// Struct to demonstrate that nested dictionaries are possible.
 	[Serializable]

@@ -32,5 +32,8 @@ namespace CressDemos
 	
 	// Friendly dictionary with GameObject as the key type, so we must use FriDictOfObjects.
 	[Serializable]
-	public class ObjObjDict : FriDictOfObjects<GameObject, Transform> { }
+	public class ObjObjDict : FriDictOfObjects<GameObject, Transform, ObjObjPair> { }
+
+	[Serializable]
+	public class ObjObjPair : FriDictPair<GameObject, Transform> { }
 }

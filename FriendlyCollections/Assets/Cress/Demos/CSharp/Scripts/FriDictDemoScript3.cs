@@ -24,7 +24,10 @@ namespace CressDemos
 	}
 
 	[Serializable]
-	public class FDDemo3Dict : FriDict<FDDemo3KeyStruct, float> { }
+	public class FDDemo3Dict : FriDict<FDDemo3KeyStruct, float, FDDemo3Pair> { }
+
+	[Serializable]
+	public class FDDemo3Pair : FriDictPair<FDDemo3KeyStruct, float> { }
 
 	// Complex type for a dictionary key.
 	[Serializable]
