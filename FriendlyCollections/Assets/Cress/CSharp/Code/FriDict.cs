@@ -36,14 +36,22 @@ namespace Cress
 	/// </summary>
 	/// <typeparam name="TKey">Dictionary key type.</typeparam>
 	/// <typeparam name="TValue">Dictionary value type.</typeparam>
-	/// <typeparam name="TPair">Serializable class inheriting from <see cref="FriDictPair{TKey, TValue}"/>.</typeparam>
 	[Serializable]
-	public abstract class FriDict<TKey, TValue, TPair>
+	public abstract class FriDict<TKey, TValue>
 		: FriDict,
 		ISerializationCallbackReceiver,
 		IEqualityComparer<TKey>
-		where TPair : FriDictPair<TKey, TValue>, new()
 	{
+		#region Classes
+
+		[Serializable]
+		private class Pair
+		{
+			public TKey key;
+			public TValue value;
+		}
+
+		#endregion
 		#region Fields
 
 		/// <summary>
@@ -56,7 +64,7 @@ namespace Cress
 		/// <para>Entries may not be unique.</para>
 		/// </summary>
 		[SerializeField]
-		private List<TPair> serialized;
+		private List<Pair> serialized;
 
 		#endregion
 		#region IEqualityComparer Methods
@@ -92,7 +100,7 @@ namespace Cress
 		public void OnBeforeSerialize()
 		{
 			if (serialized == null)
-				serialized = new List<TPair>();
+				serialized = new List<Pair>();
 
 			if (data == null)
 			{
@@ -112,7 +120,7 @@ namespace Cress
 					else
 					{
 						// Add new entry.
-						var p = new TPair();
+						var p = new Pair();
 						p.key = pair.Key;
 						p.value = pair.Value;
 						serialized.Add(p);
@@ -131,7 +139,7 @@ namespace Cress
 		{
 			if (serialized == null)
 			{
-				serialized = new List<TPair>();
+				serialized = new List<Pair>();
 
 				if (data == null)
 					data = new Dictionary<TKey, TValue>(this);
@@ -154,11 +162,9 @@ namespace Cress
 	/// </summary>
 	/// <typeparam name="TKey">Dictionary key type.</typeparam>
 	/// <typeparam name="TValue">Dictionary value type.</typeparam>
-	/// <typeparam name="TPair">Serializable class inheriting from <see cref="FriDictPair{TKey, TValue}"/>.</typeparam>
-	public abstract class FriDictOfObjects<TKey, TValue, TPair>
-		: FriDict<TKey, TValue, TPair>
+	public abstract class FriDictOfObjects<TKey, TValue>
+		: FriDict<TKey, TValue>
 		where TKey : UnityEngine.Object
-		where TPair : FriDictPair<TKey, TValue>, new()
 	{
 		public override bool Equals(TKey keyA, TKey keyB)
 		{
