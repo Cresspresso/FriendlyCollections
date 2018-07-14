@@ -22,11 +22,12 @@ namespace CressDemos
 			Dictionary<string, int> dictionary = friendlyDictionary.data;
 
 			// Print all entries.
-			Debug.LogFormat(this, "Friendly Dictionary Count: {0}", dictionary.Count);
+			string msg = string.Format("Friendly Dictionary Count: {0}\n", dictionary.Count);
 			foreach (var pair in dictionary)
 			{
-				Debug.LogFormat(this, "{0}: {1}", pair.Key, pair.Value);
+				msg += pair.ToString() + "\n";
 			}
+			Debug.Log(msg, this);
 		}
 	}
 

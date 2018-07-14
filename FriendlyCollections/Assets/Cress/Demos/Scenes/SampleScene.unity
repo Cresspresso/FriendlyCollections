@@ -351,29 +351,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   friendlyDictionary:
     serialized:
-    - key: 15
-      value: 1234
-    - key: albpa
-      value: 2217
-    - key: agd
-      value: 5432
-    - key: abcdefg
-      value: 88
-    - key: abcdefg
-      value: 88
+    - key: alpha
+      value: 1
+    - key: beta
+      value: 2
+    - key: gamma
+      value: 3
+    - key: gamma
+      value: 4
   group:
     alpha:
-      serialized: []
+      serialized:
+      - key: bc
+        value: 0
+      - key: ab
+        value: 0
     beta:
       serialized: []
     gamma:
-      serialized:
-      - key: a
-        value: 0
-      - key: b
-        value: 2
-      - key: c
-        value: 3
+      serialized: []
 --- !u!4 &800265833
 Transform:
   m_ObjectHideFlags: 0
@@ -385,7 +381,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1677053291
 GameObject:
@@ -418,29 +414,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   friendlyDictionary:
     serialized:
-    - key: 15
-      value: 1234
-    - key: agd
-      value: 5432
-    - key: albpa
-      value: 2217
-    - key: abcdefg
-      value: 88
-    - key: abcdefg
-      value: 88
+    - key: alpha
+      value: 1
+    - key: beta
+      value: 5
+    - key: gamma
+      value: 3
   group:
     alpha:
-      serialized: []
+      serialized:
+      - key: ab
+        value: 0
+      - key: bc
+        value: 0
     beta:
       serialized: []
     gamma:
-      serialized:
-      - key: a
-        value: 0
-      - key: b
-        value: 2
-      - key: c
-        value: 3
+      serialized: []
 --- !u!4 &1677053293
 Transform:
   m_ObjectHideFlags: 0
@@ -452,7 +442,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1677053294
 MonoBehaviour:
@@ -467,12 +457,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_objectMap:
     serialized:
-    - key: {fileID: 0}
+    - key: {fileID: 1677053291}
       value: {fileID: 282840814}
-    - key: {fileID: 2064505111}
-      value: {fileID: 170076735}
+    - key: {fileID: 170076733}
+      value: {fileID: 2064505113}
     - key: {fileID: 0}
-      value: {fileID: 282840814}
+      value: {fileID: 0}
 --- !u!114 &1677053295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,17 +477,17 @@ MonoBehaviour:
   m_dictionary:
     serialized:
     - key:
-        alpha: me
-        beta: 42
-      value: 22
+        alpha: a
+        beta: 0
+      value: 54
     - key:
-        alpha: me
-        beta: 42
-      value: 22
+        alpha: ba
+        beta: 2
+      value: 34
     - key:
-        alpha: you
-        beta: 32
-      value: 127
+        alpha: ca
+        beta: 0
+      value: 212
 --- !u!1 &2064505111
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Cress;
 
@@ -15,11 +16,11 @@ namespace CressDemos
 
 		private void Start()
 		{
-			Debug.LogFormat(this, "Dictionary Count: {0}", dictionary.Count);
-			foreach (var pair in dictionary)
-			{
-				Debug.LogFormat(this, "{0}: {1}", pair.Key, pair.Value);
-			}
+			string msg = string.Format("Dictionary Count: {0}\n{1}",
+				dictionary.Count,
+				(from p in dictionary select p.ToString()).Aggregate((a, b) => a + "\n" + b)
+				);
+			Debug.Log(msg, this);
 		}
 	}
 

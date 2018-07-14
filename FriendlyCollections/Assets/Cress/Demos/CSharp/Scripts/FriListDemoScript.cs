@@ -28,12 +28,13 @@ namespace CressDemos
 
 		private void Start()
 		{
-			// Print out all items of the first list.
-			Debug.LogFormat(this, "Serialized List Count: {0}", list.Count);
+			// Print all elements of the first list.
+			string msg = string.Format("Serialized List Count: {0}\n", list.Count);
 			for (int i = 0; i < list.Count; ++i)
 			{
-				Debug.LogFormat(this, "[{0}]: {1}", i, list[i]);
+				msg += string.Format("[Element {0}: {1}]\n", i, list[i]);
 			}
+			Debug.Log(msg, this);
 		}
 	}
 

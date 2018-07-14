@@ -19,14 +19,16 @@ namespace CressDemos
 
 		private void Start()
 		{
-			Debug.LogFormat(this, "Object Map Count: {0}", objectMap.Count);
+			// Print all entries.
+			string msg = string.Format("Object Map Count: {0}\n", objectMap.Count);
 			foreach (var pair in objectMap)
 			{
-				Debug.LogFormat(this, "{0}: {1}",
+				msg += string.Format("[{0}: {1}]\n",
 					pair.Key ? pair.Key.name : "null",
 					pair.Value ? pair.Value.name : "null"
 				);
 			}
+			Debug.Log(msg, this);
 		}
 	}
 	
