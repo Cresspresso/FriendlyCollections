@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Cress
+namespace Cress.Extensions
 {
 	/// <summary>
 	/// Extension methods for <see cref="Dictionary{TKey, TValue}"/>.

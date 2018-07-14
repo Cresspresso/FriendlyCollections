@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
-using Cress;
+using Cress.Extensions;
 
 namespace CressEditor
 {

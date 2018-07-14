@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using MoreLinq;
 
 namespace Cress
 {
@@ -45,8 +46,15 @@ namespace Cress
 	{
 		#region Fields
 
+		/// <summary>
+		/// Deserialized dictionary.
+		/// </summary>
 		public Dictionary<TKey, TValue> data;
 
+		/// <summary>
+		/// Serialized list of key/value pairs that form a dictionary.
+		/// <para>Entries may not be unique.</para>
+		/// </summary>
 		[SerializeField]
 		private List<TPair> serialized;
 
@@ -79,57 +87,40 @@ namespace Cress
 		#region Methods
 
 		/// <summary>
-		/// Ensures fields are not <see langword="null"/>.
-		/// </summary>
-		private void Prepare()
-		{
-			if (data == null)
-			{
-				data = new Dictionary<TKey, TValue>((IEqualityComparer<TKey>)this);
-			}
-
-			if (serialized == null)
-				serialized = new List<TPair>();
-		}
-
-		/// <summary>
 		/// Unity script event. (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnBeforeSerialize.html">Link to Docs</a>)
 		/// </summary>
 		public void OnBeforeSerialize()
 		{
-			Prepare();
+			if (serialized == null)
+				serialized = new List<TPair>();
 
-			// Update entries.
-			foreach (var pair in data)
+			if (data == null)
 			{
-				int index = serialized.FindIndex(x => Equals(x.key, pair.Key));
-				if (index >= 0)
-				{
-					// Modify existing entry.
-					serialized[index].value = pair.Value;
-				}
-				else
-				{
-					// Add new entry.
-					var p = new TPair();
-					p.key = pair.Key;
-					p.value = pair.Value;
-					serialized.Add(p);
-				}
+				data = new Dictionary<TKey, TValue>(this);
 			}
-
-			// Remove entries that no longer exist.
-			int i = 0;
-			while (i < serialized.Count)
+			else
 			{
-				if (data.ContainsKey(serialized[i].key))
+				// Update entries.
+				foreach (var pair in data)
 				{
-					++i;
+					int index = serialized.FindIndex(x => Equals(x.key, pair.Key));
+					if (index >= 0)
+					{
+						// Modify existing entry.
+						serialized[index].value = pair.Value;
+					}
+					else
+					{
+						// Add new entry.
+						var p = new TPair();
+						p.key = pair.Key;
+						p.value = pair.Value;
+						serialized.Add(p);
+					}
 				}
-				else
-				{
-					serialized.RemoveAt(i);
-				}
+
+				// Remove entries that no longer exist.
+				serialized.RemoveAll(p => !data.ContainsKey(p.key));
 			}
 		}
 
@@ -138,15 +129,20 @@ namespace Cress
 		/// </summary>
 		public void OnAfterDeserialize()
 		{
-			Prepare();
-
-			// Remove entries that no longer exist.
-			data.RemoveAll(key => !serialized.Exists(x => Equals(key, x.key)));
-
-			// Update entries by adding or modifying them.
-			foreach (TPair pair in serialized)
+			if (serialized == null)
 			{
-				data[pair.key] = pair.value;
+				serialized = new List<TPair>();
+
+				if (data == null)
+					data = new Dictionary<TKey, TValue>(this);
+				else
+					data.Clear();
+			}
+			else
+			{
+				data = serialized
+					.DistinctBy(p => p.key, this)
+					.ToDictionary(p => p.key, p => p.value, this);
 			}
 		}
 
