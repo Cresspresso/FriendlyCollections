@@ -168,10 +168,6 @@ namespace Cress
 	{
 		public override bool Equals(TKey keyA, TKey keyB)
 		{
-			if (keyA == null || keyB == null)
-			{
-				return keyA == null && keyB == null;
-			}
 			return keyA.GetInstanceID() == keyB.GetInstanceID();
 		}
 	}
