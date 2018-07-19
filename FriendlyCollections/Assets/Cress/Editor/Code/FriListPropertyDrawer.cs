@@ -19,6 +19,11 @@ namespace CressEditor
 		/// </summary>
 		protected virtual string fieldPathData { get { return "data"; } }
 
+		/// <summary>
+		/// Gets the display label for the list header.
+		/// </summary>
+		protected virtual GUIContent headerLabel { get { return new GUIContent(property.displayName); } }
+
 		#endregion
 		#region Constants
 
@@ -78,11 +83,14 @@ namespace CressEditor
 			reorderableList.headerHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 			reorderableList.drawHeaderCallback = (position) =>
 			{
-				string displayName = property.displayName;
+				GUIContent label = new GUIContent(headerLabel);
+				if (isExpanded)
+					label.text = " " + label.text;
+				
 				float h = EditorGUIUtility.standardVerticalSpacing;
 				float left = isExpanded ? -6 : 0;
 				position = new Rect(position.x + left, position.y + h / 2, position.width - left, position.height - h);
-				isExpanded = EditorGUI.Foldout(position, isExpanded, new GUIContent(isExpanded ? " " + displayName : displayName), true);
+				isExpanded = EditorGUI.Foldout(position, isExpanded, label, true);
 			};
 
 			// Element Height
@@ -168,7 +176,8 @@ namespace CressEditor
 		#region PropertyDrawer Methods
 
 		/// <summary>
-		/// Unity script event. (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.GetPropertyHeight.html">Link to Docs</a>)
+		/// Unity script event.
+		/// (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.GetPropertyHeight.html">Link to Docs</a>)
 		/// </summary>
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
@@ -185,7 +194,8 @@ namespace CressEditor
 		}
 
 		/// <summary>
-		/// Unity script event. (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.OnGUI.html">Link to Docs</a>)
+		/// Unity script event.
+		/// (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.OnGUI.html">Link to Docs</a>)
 		/// </summary>
 		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
 		{
@@ -213,11 +223,12 @@ namespace CressEditor
 		}
 
 		/// <summary>
-		/// Unity script event. (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.CanCacheInspectorGUI.html">Link to Docs</a>)
+		/// Unity script event.
+		/// (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.CanCacheInspectorGUI.html">Link to Docs</a>)
 		/// </summary>
 		public override bool CanCacheInspectorGUI(SerializedProperty property)
 		{
-			// List has animations, and foldout height toggles, so don't cache.
+			// List has animations, and foldout height toggles, so disallow caching.
 			return false;
 		}
 

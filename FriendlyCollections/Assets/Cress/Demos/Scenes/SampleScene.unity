@@ -417,6 +417,8 @@ MonoBehaviour:
     - key: alpha
       value: 1
     - key: beta
+      value: 2
+    - key: beta
       value: 5
     - key: gamma
       value: 3

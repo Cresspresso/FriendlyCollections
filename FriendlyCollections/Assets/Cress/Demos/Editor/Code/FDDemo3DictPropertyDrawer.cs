@@ -11,7 +11,11 @@ namespace CressDemosEditor
 	// Persistent data with overridden key equality method.
 	public class FDDemo3DictPData : FriDictPData
 	{
-		// Function used to compare two key properties. Used when drawing a friendly dictionary pair.
+		// Function which returns a label to use in the header of the reorderable list.
+		protected override GUIContent headerLabel { get { return new GUIContent(property.displayName, "Custom Header Tooltip"); } }
+
+		// Function which compares the equality of two key properties.
+		// Used when drawing a friendly dictionary pair.
 		protected override bool AreKeyProperitesEqual(SerializedProperty propA, SerializedProperty propB)
 		{
 			return propA.FindPropertyRelative("alpha").stringValue == propB.FindPropertyRelative("alpha").stringValue
@@ -55,11 +59,29 @@ namespace CressDemosEditor
 			float lineHeight = EditorGUIUtility.singleLineHeight;
 			float labelWidth = 60;
 
-			Rect rectLabelAlpha = new Rect(position.x, position.y, labelWidth, lineHeight);
-			Rect rectLabelBeta = new Rect(position.x, position.y + lineHeight, labelWidth, lineHeight);
+			Rect rectLabelAlpha = new Rect(
+				position.x,
+				position.y,
+				labelWidth,
+				lineHeight);
 
-			Rect rectAlpha = new Rect(rectLabelAlpha.x + rectLabelAlpha.width, rectLabelAlpha.y, position.width - labelWidth, lineHeight);
-			Rect rectBeta = new Rect(rectLabelBeta.x + rectLabelBeta.width, rectLabelBeta.y, position.width - labelWidth, lineHeight);
+			Rect rectLabelBeta = new Rect(
+				position.x,
+				position.y + lineHeight,
+				labelWidth,
+				lineHeight);
+
+			Rect rectAlpha = new Rect(
+				rectLabelAlpha.x + rectLabelAlpha.width,
+				rectLabelAlpha.y,
+				position.width - labelWidth,
+				lineHeight);
+
+			Rect rectBeta = new Rect(
+				rectLabelBeta.x + rectLabelBeta.width,
+				rectLabelBeta.y,
+				position.width - labelWidth,
+				lineHeight);
 
 			// Draw labels.
 			EditorGUI.LabelField(rectLabelAlpha, propAlpha.displayName);

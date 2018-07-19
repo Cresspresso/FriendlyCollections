@@ -36,7 +36,7 @@ namespace Cress
 	/// </summary>
 	/// <typeparam name="TKey">Dictionary key type.</typeparam>
 	/// <typeparam name="TValue">Dictionary value type.</typeparam>
-	/// <typeparam name="TPair">Serializable class inheriting from <see cref="FriDictPair{TKey, TValue}"/>.</typeparam>
+	/// <typeparam name="TPair">Serializable key/value pair class inheriting from <see cref="FriDictPair{TKey, TValue}"/>.</typeparam>
 	[Serializable]
 	public abstract class FriDict<TKey, TValue, TPair>
 		: FriDict,
@@ -87,7 +87,8 @@ namespace Cress
 		#region Methods
 
 		/// <summary>
-		/// Unity script event. (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnBeforeSerialize.html">Link to Docs</a>)
+		/// Unity script event.
+		/// (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnBeforeSerialize.html">Link to Docs</a>)
 		/// </summary>
 		public void OnBeforeSerialize()
 		{
@@ -125,7 +126,8 @@ namespace Cress
 		}
 
 		/// <summary>
-		/// Unity script event. (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnAfterDeserialize.html">Link to Docs</a>)
+		/// Unity script event.
+		/// (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnAfterDeserialize.html">Link to Docs</a>)
 		/// </summary>
 		public void OnAfterDeserialize()
 		{
@@ -152,9 +154,9 @@ namespace Cress
 	/// <summary>
 	/// Serializable dictionary with <see cref="UnityEngine.Object"/> as the key type.
 	/// </summary>
-	/// <typeparam name="TKey">Dictionary key type.</typeparam>
+	/// <typeparam name="TKey">Dictionary key type inheriting from <see cref="UnityEngine.Object"/>.</typeparam>
 	/// <typeparam name="TValue">Dictionary value type.</typeparam>
-	/// <typeparam name="TPair">Serializable class inheriting from <see cref="FriDictPair{TKey, TValue}"/>.</typeparam>
+	/// <typeparam name="TPair">Serializable key/value pair class inheriting from <see cref="FriDictPair{TKey, TValue}"/>.</typeparam>
 	public abstract class FriDictOfObjects<TKey, TValue, TPair>
 		: FriDict<TKey, TValue, TPair>
 		where TKey : UnityEngine.Object
