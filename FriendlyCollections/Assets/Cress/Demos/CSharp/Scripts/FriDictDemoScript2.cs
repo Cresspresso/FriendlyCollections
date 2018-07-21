@@ -23,7 +23,7 @@ namespace CressDemos
 			string msg = string.Format("Object Map Count: {0}\n", objectMap.Count);
 			foreach (var pair in objectMap)
 			{
-				msg += string.Format("[{0}: {1}]\n",
+				msg += string.Format("{0}: {1}\n",
 					pair.Key ? pair.Key.name : "null",
 					pair.Value ? pair.Value.name : "null"
 				);
@@ -32,9 +32,8 @@ namespace CressDemos
 		}
 	}
 	
-	// Friendly dictionary with GameObject as the key type, so we must use FriDictOfObjects.
 	[Serializable]
-	public class ObjObjDict : FriDictOfObjects<GameObject, Transform, ObjObjPair> { }
+	public class ObjObjDict : FriDict<GameObject, Transform, ObjObjPair> { }
 
 	[Serializable]
 	public class ObjObjPair : FriDictPair<GameObject, Transform> { }

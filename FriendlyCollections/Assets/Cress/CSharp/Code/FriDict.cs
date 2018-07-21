@@ -179,24 +179,4 @@ namespace Cress
 	}
 
 	#endregion
-	#region FriDictOfObjects
-
-	/// <summary>
-	/// Serializable dictionary with <see cref="UnityEngine.Object"/> as the key type.
-	/// </summary>
-	/// <typeparam name="TKey">Dictionary key type inheriting from <see cref="UnityEngine.Object"/>.</typeparam>
-	/// <typeparam name="TValue">Dictionary value type.</typeparam>
-	/// <typeparam name="TPair">Serializable key/value pair class inheriting from <see cref="FriDictPair{TKey, TValue}"/>.</typeparam>
-	public abstract class FriDictOfObjects<TKey, TValue, TPair>
-		: FriDict<TKey, TValue, TPair>
-		where TKey : UnityEngine.Object
-		where TPair : FriDictPair<TKey, TValue>, new()
-	{
-		public override bool Equals(TKey keyA, TKey keyB)
-		{
-			return FriHashSetFunctions.UnityObjectEquals(keyA, keyB);
-		}
-	}
-
-	#endregion
 }

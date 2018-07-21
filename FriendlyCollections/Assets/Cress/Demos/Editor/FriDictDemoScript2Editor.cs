@@ -8,7 +8,7 @@ using CressDemos;
 
 namespace CressDemosEditor
 {
-	// Friendly property drawer for a FriDictOfObjects class.
+	// Friendly property drawer for a Dictionary<UnityEngine.Object, TValue> class.
 	[CustomPropertyDrawer(typeof(ObjObjDict))]
 	public class ObjObjDictPropertyDrawer : FriDictOfObjectsPropertyDrawer { }
 }

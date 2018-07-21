@@ -513,9 +513,9 @@ MonoBehaviour:
   objectSet:
     serialized:
     - {fileID: 388156384}
-    - {fileID: 388156384}
     - {fileID: 800265831}
     - {fileID: 0}
+    - {fileID: 388156384}
 --- !u!1 &1677053291
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +584,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_objectMap:
     serialized:
-    - key: {fileID: 388156384}
+    - key: {fileID: 170076733}
+      value: {fileID: 0}
+    - key: {fileID: 1303040659}
+      value: {fileID: 0}
+    - key: {fileID: 1303040659}
       value: {fileID: 0}
     - key: {fileID: 0}
       value: {fileID: 0}
@@ -671,6 +675,7 @@ MonoBehaviour:
     - Baboon
     - Elephant
     - Giraffe
+    - Alpaca
 --- !u!4 &2064505113
 Transform:
   m_ObjectHideFlags: 0

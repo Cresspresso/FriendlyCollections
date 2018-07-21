@@ -15,7 +15,7 @@ namespace CressDemosEditor
 		protected override GUIContent headerLabel { get { return new GUIContent(property.displayName, "Custom Header Tooltip"); } }
 
 		// Function which compares the equality of two key properties.
-		// Used when drawing a friendly dictionary pair.
+		// Used when drawing a friendly dictionary key/value pair.
 		protected override bool Equals(SerializedProperty propKeyA, SerializedProperty propKeyB)
 		{
 			return propKeyA.FindPropertyRelative("alpha").stringValue == propKeyB.FindPropertyRelative("alpha").stringValue
@@ -35,7 +35,7 @@ namespace CressDemosEditor
 		}
 	}
 	
-	// Custom property drawer for FDE3KeyStruct.
+	// Custom property drawer for complex key type FDDemo3KeyStruct.
 	[CustomPropertyDrawer(typeof(FDDemo3KeyStruct))]
 	public class FDDemo3KeyStructPropertyDrawer : PropertyDrawer
 	{

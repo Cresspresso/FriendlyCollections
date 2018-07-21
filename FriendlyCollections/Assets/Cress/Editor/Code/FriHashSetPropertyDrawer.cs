@@ -178,7 +178,7 @@ namespace CressEditor
 	#region FriHashSetOfObjectsPropertyDrawer
 
 	/// <summary>
-	/// Friendly property drawer for <see cref="FriHashSetOfObjects{T}"/>.
+	/// Friendly property drawer for <see cref="FriHashSet{T}"/> of <see cref="UnityEngine.Object"/>.
 	/// <para>Must be instantiated with the <see cref="CustomPropertyDrawer"/> attribute.</para>
 	/// </summary>
 	public class FriHashSetOfObjectsPropertyDrawer : FriendlyCollectionPropertyDrawer<FriHashSetOfObjectsPData>

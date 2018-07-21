@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Cress.MainThreadLinq
 {
+	/// <summary>
+	/// Similar to the extension methods provided by <see cref="System.Linq.Enumerable"/>,
+	/// but using only the main thread and no iterator functions.
+	/// </summary>
 	public static class MainThreadLinq
 	{
 		public static bool IsUnique<T>(
