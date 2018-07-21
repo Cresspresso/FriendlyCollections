@@ -256,6 +256,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &388156384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 388156386}
+  - component: {fileID: 388156385}
+  m_Layer: 0
+  m_Name: FriHashSetDemo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &388156385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 388156384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98cbf9408cc84fe45939b1e32551dc03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friendlyHashSet:
+    serialized:
+    - a
+    - b
+    - c
+--- !u!4 &388156386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 388156384}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &583068495
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,8 +310,9 @@ GameObject:
   m_Component:
   - component: {fileID: 583068497}
   - component: {fileID: 583068496}
+  - component: {fileID: 583068498}
   m_Layer: 0
-  m_Name: FriListDemo (1)
+  m_Name: FriListDemo2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,32 +329,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa49e2753af60dd4fb6e5454d9f70074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedList:
-    data:
-    - pardner
-    - b
-    - 214
-    - d
-    - e
-  group:
-    alpha:
-      data:
-      - eieo
-    beta:
-      data:
-      - bbbcx
-      - ghgd
-      - asdge
-    gamma:
-      data: []
-  nested:
-  - data:
-    - gads
-  - data: []
-  - data:
-    - a
-    - c
-    - b
+  friendlyList:
+    serialized:
+    - Alpaca
+    - Baboon
+    - Giraffe
 --- !u!4 &583068497
 Transform:
   m_ObjectHideFlags: 0
@@ -320,8 +345,34 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &583068498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 583068495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01c6c1366029d1d47844264ee966b4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  group:
+    alpha:
+      serialized: []
+    beta:
+      serialized:
+      - {fileID: 0}
+    gamma:
+      serialized: []
+  array:
+  - serialized:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+  - serialized:
+    - {fileID: 0}
 --- !u!1 &800265831
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 800265833}
+  - component: {fileID: 800265834}
   - component: {fileID: 800265832}
   m_Layer: 0
   m_Name: FriDictDemo
@@ -349,27 +401,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa0a4d25a40df7468f2dcad1a59a2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  friendlyDictionary:
-    serialized:
-    - key: alpha
-      value: 1
-    - key: beta
-      value: 2
-    - key: gamma
-      value: 3
-    - key: gamma
-      value: 4
   group:
     alpha:
       serialized:
-      - key: bc
-        value: 0
-      - key: ab
-        value: 0
+      - key: 0
+        value: 1
+      - key: 0
+        value: 1
     beta:
       serialized: []
     gamma:
       serialized: []
+  array:
+  - serialized:
+    - key: 0
+      value: 
 --- !u!4 &800265833
 Transform:
   m_ObjectHideFlags: 0
@@ -381,8 +427,94 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &800265834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 800265831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9131f604e8363b249a05b26c91b0e57b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friendlyDictionary:
+    serialized:
+    - key: Alpha
+      value: 1
+    - key: Beta
+      value: 2
+    - key: Gamma
+      value: 3
+    - key: Beta
+      value: 4
+    - key: Delta
+      value: 5
+--- !u!1 &1303040659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1303040661}
+  - component: {fileID: 1303040660}
+  - component: {fileID: 1303040662}
+  m_Layer: 0
+  m_Name: FriHashSetDemo2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1303040660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1303040659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98cbf9408cc84fe45939b1e32551dc03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friendlyHashSet:
+    serialized:
+    - a
+    - f
+    - c
+    - b
+--- !u!4 &1303040661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1303040659}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1303040662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1303040659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc53434d1c775674f8c7e4e98db9db37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectSet:
+    serialized:
+    - {fileID: 0}
+    - {fileID: 388156384}
+    - {fileID: 583068495}
 --- !u!1 &1677053291
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,6 +523,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1677053293}
+  - component: {fileID: 1677053296}
   - component: {fileID: 1677053292}
   - component: {fileID: 1677053294}
   - component: {fileID: 1677053295}
@@ -412,27 +545,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fa0a4d25a40df7468f2dcad1a59a2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  friendlyDictionary:
-    serialized:
-    - key: alpha
-      value: 1
-    - key: beta
-      value: 2
-    - key: beta
-      value: 5
-    - key: gamma
-      value: 3
   group:
     alpha:
       serialized:
-      - key: ab
-        value: 0
-      - key: bc
-        value: 0
+      - key: 0
+        value: 
+      - key: 0
+        value: 
     beta:
       serialized: []
     gamma:
       serialized: []
+  array: []
 --- !u!4 &1677053293
 Transform:
   m_ObjectHideFlags: 0
@@ -444,7 +568,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1677053294
 MonoBehaviour:
@@ -459,10 +583,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_objectMap:
     serialized:
-    - key: {fileID: 1677053291}
-      value: {fileID: 282840814}
-    - key: {fileID: 170076733}
-      value: {fileID: 2064505113}
+    - key: {fileID: 388156384}
+      value: {fileID: 0}
     - key: {fileID: 0}
       value: {fileID: 0}
 --- !u!114 &1677053295
@@ -479,17 +601,42 @@ MonoBehaviour:
   m_dictionary:
     serialized:
     - key:
-        alpha: a
-        beta: 0
+        alpha: Ciao
+        beta: 1
       value: 54
     - key:
-        alpha: ba
+        alpha: Ciao
         beta: 2
-      value: 34
+      value: 33
     - key:
-        alpha: ca
-        beta: 0
+        alpha: Howdy
+        beta: 1
       value: 212
+    - key:
+        alpha: Howdy
+        beta: 1
+      value: 5
+--- !u!114 &1677053296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1677053291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9131f604e8363b249a05b26c91b0e57b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friendlyDictionary:
+    serialized:
+    - key: Alpha
+      value: 1
+    - key: Gamma
+      value: 3
+    - key: Beta
+      value: 2
+    - key: Beta
+      value: 5
 --- !u!1 &2064505111
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,34 +664,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa49e2753af60dd4fb6e5454d9f70074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedList:
-    data:
-    - pardner
-    - 512
-    - 214
-    - asdgagdsx
-    - ahg
-  group:
-    alpha:
-      data:
-      - 
-      - 
-      - 
-    beta:
-      data:
-      - bbbcx
-      - ghgd
-      - asdge
-    gamma:
-      data: []
-  nested:
-  - data:
-    - gads
-  - data: []
-  - data:
-    - a
-    - c
-    - b
+  friendlyList:
+    serialized:
+    - Alpaca
+    - Baboon
+    - Elephant
+    - Giraffe
 --- !u!4 &2064505113
 Transform:
   m_ObjectHideFlags: 0
@@ -556,5 +681,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

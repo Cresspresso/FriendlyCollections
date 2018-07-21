@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Cress;
+using CressEditor.Extensions;
 
 namespace CressEditor
 {
@@ -11,7 +12,7 @@ namespace CressEditor
 	/// <summary>
 	/// <see cref="PersistentData"/> for <see cref="FriDictPropertyDrawer"/>.
 	/// </summary>
-	public class FriDictPData : ReorderableListPData
+	public class FriDictPData : FriendlyCollectionPData
 	{
 		#region Constants
 
@@ -30,11 +31,16 @@ namespace CressEditor
 		/// </summary>
 		private const string fieldPathPairValue = "value";
 
+		/// <summary>
+		/// Type name of collection.
+		/// </summary>
+		protected override string noneElementCollectionName { get { return "Dictionary"; } }
+
 		#endregion
 		#region Methods
 
 		/// <summary>
-		/// Overridden method <see cref="ReorderableListPData{TDataArgs}.OnInitReorderableList"/>.
+		/// Overridden method <see cref="FriendlyCollectionPData{TDataArgs}.OnInitReorderableList"/>.
 		/// </summary>
 		protected override void InitReorderableList()
 		{
@@ -77,7 +83,7 @@ namespace CressEditor
 				Rect rectValueField = new Rect(rectValueLabel.x + x, position.y, half - x, position.height);
 				
 				bool duplicate = CountKey(index, 0, index - 1) > 0;
-				if (duplicate)
+				if (duplicate && !serializedObject.isEditingMultipleObjects)
 				{
 					GUIStyle style = new GUIStyle(EditorStyles.label);
 					style.normal.textColor = Color.red;
@@ -94,30 +100,24 @@ namespace CressEditor
 				EditorGUI.PropertyField(rectKeyField, propKey, GUIContent.none, true);
 				EditorGUI.PropertyField(rectValueField, propValue, GUIContent.none, true);
 			};
-
-			// Draw None Element
-			reorderableList.drawNoneElementCallback = (position) =>
-			{
-				EditorGUI.LabelField(position, "Dictionary is Empty");
-			};
 		}
 
 		/// <summary>
 		/// Compares the equality of two key properties.
 		/// <para>Override this method to compare complex and custom types.</para>
 		/// </summary>
-		/// <param name="propA">First key property.</param>
-		/// <param name="propB">Second key property.</param>
+		/// <param name="propKeyA">First key property.</param>
+		/// <param name="propKeyB">Second key property.</param>
 		/// <returns><see langword="true"/> if the keys are equal.</returns>
-		protected virtual bool AreKeyProperitesEqual(SerializedProperty propA, SerializedProperty propB)
+		protected virtual bool Equals(SerializedProperty propKeyA, SerializedProperty propKeyB)
 		{
 			try
 			{
-				return object.Equals(propA.GetPropertyValue(), propB.GetPropertyValue());
+				return object.Equals(propKeyA.GetPropertyValue(), propKeyB.GetPropertyValue());
 			}
 			catch (Exception e)
 			{
-				Debug.LogError("Friendly dictionary key type is not a primitive type. Try overriding AreKeyPropertiesEqual.");
+				Debug.LogError("Friendly dictionary key type is not a primitive type. Try overriding property drawer Equals.");
 				Debug.LogException(e);
 				return false;
 			}
@@ -153,7 +153,7 @@ namespace CressEditor
 			for (int i = startIndex; i < arraySize && i <= endIndex; ++i)
 			{
 				SerializedProperty otherKey = propData.GetArrayElementAtIndex(i).FindPropertyRelative(fieldPathPairKey);
-				if (AreKeyProperitesEqual(propKey, otherKey))
+				if (Equals(propKey, otherKey))
 				{
 					++count;
 				}
@@ -171,7 +171,7 @@ namespace CressEditor
 	/// <see cref="CustomPropertyDrawer"/> for <see cref="FriDict"/>.
 	/// </summary>
 	[CustomPropertyDrawer(typeof(FriDict), true)]
-	public class FriDictPropertyDrawer : ReorderableListPropertyDrawer<FriDictPData>
+	public class FriDictPropertyDrawer : FriendlyCollectionPropertyDrawer<FriDictPData>
 	{
 		#region Persistence
 
@@ -200,9 +200,16 @@ namespace CressEditor
 	/// </summary>
 	public class FriDictOfObjectsPData : FriDictPData
 	{
-		protected override bool AreKeyProperitesEqual(SerializedProperty propA, SerializedProperty propB)
+		/// <summary>
+		/// Compares the equality of two key properties (where key type inherits <see cref="UnityEngine.Object"/>).
+		/// <para>Override this method to compare complex and custom types.</para>
+		/// </summary>
+		/// <param name="propKeyA">First key property.</param>
+		/// <param name="propKeyB">Second key property.</param>
+		/// <returns><see langword="true"/> if the keys are equal.</returns>
+		protected override bool Equals(SerializedProperty propKeyA, SerializedProperty propKeyB)
 		{
-			return propA.objectReferenceInstanceIDValue == propB.objectReferenceInstanceIDValue;
+			return propKeyA.objectReferenceInstanceIDValue == propKeyB.objectReferenceInstanceIDValue;
 		}
 	}
 
@@ -213,7 +220,7 @@ namespace CressEditor
 	/// Friendly property drawer for <see cref="FriDictOfObjects{TKey, TValue, TPair}"/>.
 	/// <para>Must be instantiated with the <see cref="CustomPropertyDrawer"/> attribute.</para>
 	/// </summary>
-	public class FriDictOfObjectsPropertyDrawer : ReorderableListPropertyDrawer<FriDictOfObjectsPData>
+	public class FriDictOfObjectsPropertyDrawer : FriendlyCollectionPropertyDrawer<FriDictOfObjectsPData>
 	{
 		#region Persistence
 

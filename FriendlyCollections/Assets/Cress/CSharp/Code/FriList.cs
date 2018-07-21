@@ -18,6 +18,15 @@ namespace Cress
 	[Serializable]
 	public abstract class FriList<T> : FriList
 	{
-		public List<T> data;
+		/// <summary>
+		/// Deserialized list.
+		/// </summary>
+		public List<T> data { get { return serialized; } }
+
+		/// <summary>
+		/// Serialized list.
+		/// </summary>
+		[SerializeField]
+		private List<T> serialized;
 	}
 }

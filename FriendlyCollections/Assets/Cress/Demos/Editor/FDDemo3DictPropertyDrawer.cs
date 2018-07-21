@@ -16,16 +16,16 @@ namespace CressDemosEditor
 
 		// Function which compares the equality of two key properties.
 		// Used when drawing a friendly dictionary pair.
-		protected override bool AreKeyProperitesEqual(SerializedProperty propA, SerializedProperty propB)
+		protected override bool Equals(SerializedProperty propKeyA, SerializedProperty propKeyB)
 		{
-			return propA.FindPropertyRelative("alpha").stringValue == propB.FindPropertyRelative("alpha").stringValue
-				&& propA.FindPropertyRelative("beta").floatValue == propB.FindPropertyRelative("beta").floatValue;
+			return propKeyA.FindPropertyRelative("alpha").stringValue == propKeyB.FindPropertyRelative("alpha").stringValue
+				&& propKeyA.FindPropertyRelative("beta").floatValue == propKeyB.FindPropertyRelative("beta").floatValue;
 		}
 	}
 	
 	// Custom property drawer for a custom friendly dictionary using a custom persistent data class.
 	[CustomPropertyDrawer(typeof(FDDemo3Dict))]
-	public class FDDemo3DictPropertyDrawer : ReorderableListPropertyDrawer<FDDemo3DictPData>
+	public class FDDemo3DictPropertyDrawer : FriendlyCollectionPropertyDrawer<FDDemo3DictPData>
 	{
 		private static PersistenceTable<FDDemo3DictPData> persistence = new PersistenceTable<FDDemo3DictPData>();
 

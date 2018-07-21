@@ -6,45 +6,31 @@ using Cress;
 
 namespace CressDemos
 {
-	// Demo script.
 	public class FriDictDemoScript1 : MonoBehaviour
 	{
-		// Friendly dictionary drawn in the inspector.
-		public StringIntDict friendlyDictionary;
+		// Fields
 
-		public MyDictStruct group;
+		[SerializeField]
+		private FloatStringDictStruct group;
 
+		[SerializeField]
+		private FloatStringDict[] array;
 
+		// Classes
 
-		private void Start()
+		[Serializable]
+		public class FloatStringDict : FriDict<float, string, FloatStringPair> { }
+
+		[Serializable]
+		public class FloatStringPair : FriDictPair<float, string> { }
+
+		// Struct to demonstrate nesting.
+		[Serializable]
+		public struct FloatStringDictStruct
 		{
-			// Alias the deserialized dictionary.
-			Dictionary<string, int> dictionary = friendlyDictionary.data;
-
-			// Print all entries.
-			string msg = string.Format("Friendly Dictionary Count: {0}\n", dictionary.Count);
-			foreach (var pair in dictionary)
-			{
-				msg += pair.ToString() + "\n";
-			}
-			Debug.Log(msg, this);
+			public FloatStringDict alpha;
+			public FloatStringDict beta;
+			public FloatStringDict gamma;
 		}
-	}
-
-	// Serializable attribute to remove generic nature from the FriDictPair class.
-	[Serializable]
-	public class StringIntPair : FriDictPair<string, int> { }
-
-	// Serializable attribut to remove generic nature from the FriDict class.
-	[Serializable]
-	public class StringIntDict : FriDict<string, int, StringIntPair> { }
-
-	// Struct to demonstrate that nested dictionaries are possible.
-	[Serializable]
-	public struct MyDictStruct
-	{
-		public StringIntDict alpha;
-		public StringIntDict beta;
-		public StringIntDict gamma;
 	}
 }

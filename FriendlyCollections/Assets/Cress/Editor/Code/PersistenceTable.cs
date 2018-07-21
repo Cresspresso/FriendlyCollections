@@ -107,8 +107,12 @@ namespace CressEditor
 		{
 			get
 			{
+				string key = string.Format("{0}::{1}",
+					property.serializedObject.targetObject.GetType().FullName,
+					property.propertyPath);
+				// (Using just propertyPath causes changes to other serializedObjects with similar property paths.)
+
 				TData data;
-				string key = property.propertyPath;
 				if (persistence.ContainsKey(key))
 				{
 					data = persistence[key];

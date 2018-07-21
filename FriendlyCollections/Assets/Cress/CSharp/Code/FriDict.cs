@@ -7,6 +7,8 @@ using MoreLinq;
 
 namespace Cress
 {
+	#region FriDictPair
+
 	/// <summary>
 	/// Base class for <see cref="FriDictPair{TKey, TValue}"/>, used by its default property drawer.
 	/// </summary>
@@ -24,6 +26,9 @@ namespace Cress
 		public TKey key;
 		public TValue value;
 	}
+
+	#endregion
+	#region FriDict
 
 	/// <summary>
 	/// Base class for <see cref="FriDict{TKey, TValue, TPair}"/>, used by its default property drawer.
@@ -49,11 +54,11 @@ namespace Cress
 		/// <summary>
 		/// Deserialized dictionary.
 		/// </summary>
-		public Dictionary<TKey, TValue> data;
+		public Dictionary<TKey, TValue> data { get; private set; }
 
 		/// <summary>
 		/// Serialized list of key/value pairs that form a dictionary.
-		/// <para>Entries may not be unique.</para>
+		/// <para>Entries might not be unique.</para>
 		/// </summary>
 		[SerializeField]
 		private List<TPair> serialized;
@@ -142,14 +147,27 @@ namespace Cress
 			}
 			else
 			{
-				data = serialized
-					.DistinctBy(p => p.key, this)
-					.ToDictionary(p => p.key, p => p.value, this);
+				try
+				{
+					data = serialized
+						.DistinctBy(p => p.key, this)
+						.ToDictionary(p => p.key, p => p.value, this);
+				}
+				catch (Exception e)
+				{
+					if (data == null)
+						data = new Dictionary<TKey, TValue>(this);
+
+					Debug.LogException(e);
+				}
 			}
 		}
 
 		#endregion
 	}
+
+	#endregion
+	#region FriDictOfObjects
 
 	/// <summary>
 	/// Serializable dictionary with <see cref="UnityEngine.Object"/> as the key type.
@@ -164,11 +182,9 @@ namespace Cress
 	{
 		public override bool Equals(TKey keyA, TKey keyB)
 		{
-			if (keyA == null || keyB == null)
-			{
-				return keyA == null && keyB == null;
-			}
-			return keyA.GetInstanceID() == keyB.GetInstanceID();
+			return FriHashSetFunctions.UnityObjectEquals(keyA, keyB);
 		}
 	}
+
+	#endregion
 }

@@ -8,7 +8,7 @@ using CressDemos;
 
 namespace CressDemosEditor
 {
-	// Friendly property drawer implemented for a FriDictOfObjects dictionary.
+	// Friendly property drawer for a FriDictOfObjects class.
 	[CustomPropertyDrawer(typeof(ObjObjDict))]
 	public class ObjObjDictPropertyDrawer : FriDictOfObjectsPropertyDrawer { }
 }

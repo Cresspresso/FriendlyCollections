@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cress
+namespace CressUnused
 {
 	/// <summary>
 	/// Struct that can be used to represent <see langword="void"/> in place of a type parameter.
