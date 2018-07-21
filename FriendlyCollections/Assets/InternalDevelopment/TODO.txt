@@ -1,0 +1,15 @@
+============
+    TODO
+
+===========================
+    FriendlyCollections
+
+- Fix bug where message "List is Empty" is displayed even though
+  isEditingMultipleProperties is true and some lists have more than
+  zero elements.
+- (Hard) Editing multiple Dictionary/HashSet properties should show
+  common keys, not based on position in list.
+
+
+
+All done.
