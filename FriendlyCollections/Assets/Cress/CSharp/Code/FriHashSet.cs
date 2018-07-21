@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using MoreLinq;
+using MTLinq = Cress.MainThreadLinq.MainThreadLinq;
 
 namespace Cress
 {
@@ -120,16 +121,30 @@ namespace Cress
 			}
 			else
 			{
+				// Deserialize.
 				try
 				{
-					data = serialized.Distinct(this).ToHashSet(this);
+					data = serialized
+						.Distinct(this)
+						.ToHashSet(this);
 				}
-				catch (Exception e)
-				{ // TODO if fails due to thread error, use own algorithm for Distinct.
-					if (data == null)
-						data = new HashSet<T>(this);
+				catch (Exception e1)
+				{
+					try
+					{
+						data = MTLinq.ToHashSet(serialized, this);
+					}
+					catch (Exception e2)
+					{
+						// Failed to deserialize.
 
-					Debug.LogException(e);
+						if (data == null)
+							data = new HashSet<T>(this);
+
+						Debug.Log("Failed to deserialize hash set.");
+						Debug.LogException(e1);
+						Debug.LogException(e2);
+					}
 				}
 			}
 		}

@@ -512,9 +512,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectSet:
     serialized:
-    - {fileID: 0}
     - {fileID: 388156384}
-    - {fileID: 583068495}
+    - {fileID: 388156384}
+    - {fileID: 800265831}
+    - {fileID: 0}
 --- !u!1 &1677053291
 GameObject:
   m_ObjectHideFlags: 0

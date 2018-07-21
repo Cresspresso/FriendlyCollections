@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using MoreLinq;
+using MTLinq = Cress.MainThreadLinq.MainThreadLinq;
 
 namespace Cress
 {
@@ -147,18 +148,29 @@ namespace Cress
 			}
 			else
 			{
+				// Deserialize.
 				try
 				{
 					data = serialized
 						.DistinctBy(p => p.key, this)
 						.ToDictionary(p => p.key, p => p.value, this);
 				}
-				catch (Exception e)
+				catch (Exception e1)
 				{
-					if (data == null)
-						data = new Dictionary<TKey, TValue>(this);
+					try
+					{
+						data = MTLinq.ToDictionary(serialized, p => p.key, p => p.value, this);
+					}
+					catch (Exception e2)
+					{
+						// Failed to deserialize.
+						if (data == null)
+							data = new Dictionary<TKey, TValue>(this);
 
-					Debug.LogException(e);
+						Debug.Log("Failed to deserialize dictionary.");
+						Debug.LogException(e1);
+						Debug.LogException(e2);
+					}
 				}
 			}
 		}

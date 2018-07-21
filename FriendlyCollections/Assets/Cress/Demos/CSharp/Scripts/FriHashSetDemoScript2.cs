@@ -26,5 +26,5 @@ namespace CressDemos
 
 	// Demo custom property drawer was implemented for this class.
 	[Serializable]
-	public class ObjectHashSet : FriHashSetOfObjects<GameObject> { }
+	public class ObjectHashSet : FriHashSet<GameObject> { }
 }
