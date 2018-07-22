@@ -1,4 +1,4 @@
-﻿namespace Cresspresso.Extensions.MainThreadLinq
+﻿namespace Cresspresso.Extensions
 {
 	using System;
 	using System.Collections.Generic;

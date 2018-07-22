@@ -1,9 +1,9 @@
-﻿namespace Cresspresso.FriendlyCollections.Editors
+﻿namespace Cresspresso.FriendlyCollections.Editor
 {
 	using System;
 	using UnityEngine;
 	using UnityEditor;
-	using Extensions.Editors;
+	using Cresspresso.Editor.Extensions;
 
 	#region FriDictPData
 
@@ -15,7 +15,7 @@
 		#region Constants
 
 		/// <summary>
-		/// Property name of <see cref="FriDict{TKey, TValue, TPair}.serialized"/>.
+		/// Property name of <see cref="FriDict{TKey, TValue, TPair}"/>.serialized.
 		/// </summary>
 		protected override string fieldPathData { get { return "serialized"; } }
 
@@ -38,7 +38,7 @@
 		#region Methods
 
 		/// <summary>
-		/// Overridden method <see cref="FriendlyCollectionPData{TDataArgs}.OnInitReorderableList"/>.
+		/// Overridden method <see cref="FriendlyCollectionPData.InitReorderableList"/>.
 		/// </summary>
 		protected override void InitReorderableList()
 		{
@@ -215,7 +215,8 @@
 	#region FriDictOfObjectsPropertyDrawer
 	
 	/// <summary>
-	/// Friendly property drawer for <see cref="FriDictOfObjects{TKey, TValue, TPair}"/>.
+	/// Friendly property drawer for <see cref="FriDict{TKey, TValue, TPair}"/>
+	/// where TKey inherits <see cref="UnityEngine.Object"/>.
 	/// <para>Must be instantiated with the <see cref="CustomPropertyDrawer"/> attribute.</para>
 	/// </summary>
 	public class FriDictOfObjectsPropertyDrawer : FriendlyCollectionPropertyDrawer<FriDictOfObjectsPData>

@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Assembly-CSharp</name>
+    </assembly>
+    <members>
+        <member name="T:Cresspresso.Extensions.DictionaryExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Collections.Generic.Dictionary`2"/>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.Extensions.DictionaryExtensions.RemoveAll``2(System.Collections.Generic.Dictionary{``0,``1},System.Func{``0,System.Boolean})">
+            <summary>
+            Removes all entries where the key satisfies the predicate.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.Extensions.DictionaryExtensions.RemoveAllEntries``2(System.Collections.Generic.Dictionary{``0,``1},System.Func{System.Collections.Generic.KeyValuePair{``0,``1},System.Boolean})">
+            <summary>
+            Removes all entries that satisfy the predicate.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.Extensions.MainThreadLinq">
+            <summary>
+            Similar to the extension methods provided by <see cref="T:System.Linq.Enumerable"/>,
+            but using only the main thread and no iterator functions.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.Void">
+            <summary>
+            Struct that can be used to represent <see langword="void"/> in place of a type parameter.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.Void.value">
+            <summary>
+            Singleton instance. Has the same effect as <c>new Void()</c>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.Void.Equals(System.Object)">
+            <summary>
+            Returns <see langword="true"/> if <paramref name="obj"/> inherits from <see cref="T:Cresspresso.Void"/>. Otherwise <see langword="false"/>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.Void.GetHashCode">
+            <summary>
+            Returns <c>0</c>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.Void.ToString">
+            <summary>
+            Returns <c>"Void"</c>.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.FriDictPair">
+            <summary>
+            Base class for <see cref="T:Cresspresso.FriendlyCollections.FriDictPair`2"/>, used by its default property drawer.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.FriDictPair`2">
+            <summary>
+            Serializable key-value pair for a <see cref="T:Cresspresso.FriendlyCollections.FriDict`3"/>.
+            </summary>
+            <typeparam name="TKey">Dictionary key type.</typeparam>
+            <typeparam name="TValue">Dictionary value type.</typeparam>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.FriDict">
+            <summary>
+            Base class for <see cref="T:Cresspresso.FriendlyCollections.FriDict`3"/>, used by its default property drawer.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.FriDict`3">
+            <summary>
+            Serializable dictionary with a custom property drawer.
+            </summary>
+            <typeparam name="TKey">Dictionary key type.</typeparam>
+            <typeparam name="TValue">Dictionary value type.</typeparam>
+            <typeparam name="TPair">Serializable key/value pair class inheriting from <see cref="T:Cresspresso.FriendlyCollections.FriDictPair`2"/>.</typeparam>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.FriDict`3.data">
+            <summary>
+            Deserialized dictionary.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.FriDict`3.serialized">
+            <summary>
+            Serialized list of key/value pairs that form a dictionary.
+            <para>Entries might not be unique.</para>
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.FriDict`3.GetHashCode(`0)">
+            <summary>
+            Gets the hash code of a key value.
+            </summary>
+            <param name="key">Key value.</param>
+            <returns>Hash code.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.FriDict`3.Equals(`0,`0)">
+            <summary>
+            Compares the equality of two key values.
+            <para>Override this method to compare complex and custom types.</para>
+            </summary>
+            <param name="keyA">First key value.</param>
+            <param name="keyB">Second key value.</param>
+            <returns><see langword="true"/> if the keys are equal.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.FriDict`3.OnBeforeSerialize">
+            <summary>
+            Unity script event.
+            (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnBeforeSerialize.html">Link to Docs</a>)
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.FriDict`3.OnAfterDeserialize">
+            <summary>
+            Unity script event.
+            (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnAfterDeserialize.html">Link to Docs</a>)
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.FriHashSet">
+            <summary>
+            Base class for <see cref="T:Cresspresso.FriendlyCollections.FriHashSet`1"/>, used by its default property drawer.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.FriHashSet`1">
+            <summary>
+            Serializable hash set with a custom property drawer.
+            </summary>
+            <typeparam name="T">Element type.</typeparam>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.FriHashSet`1.data">
+            <summary>
+            Deserialized hash set.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.FriHashSet`1.serialized">
+            <summary>
+            Serialized list of elements that form a hash set.
+            <para>Entries might not be unique.</para>
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.FriHashSet`1.GetHashCode(`0)">
+            <summary>
+            Gets the hash code of an element value.
+            </summary>
+            <param name="element">Element value.</param>
+            <returns>Hash code.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.FriHashSet`1.Equals(`0,`0)">
+            <summary>
+            Compares the equality of two element values.
+            <para>Override this method to compare complex and custom types.</para>
+            </summary>
+            <param name="elementA">First element value.</param>
+            <param name="elementB">Second element value.</param>
+            <returns><see langword="true"/> if the elements are equal.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.FriHashSet`1.OnBeforeSerialize">
+            <summary>
+            Unity script event.
+            (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnBeforeSerialize.html">Link to Docs</a>)
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.FriHashSet`1.OnAfterDeserialize">
+            <summary>
+            Unity script event.
+            (<a href="https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnAfterDeserialize.html">Link to Docs</a>)
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.FriList">
+            <summary>
+            Base class for <see cref="T:Cresspresso.FriendlyCollections.FriList`1"/>, used by its custom property drawer.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.FriList`1">
+            <summary>
+            <see cref="T:System.Collections.Generic.List`1"/> wrapper class styled as a reorderable list in the inspector.
+            </summary>
+            <typeparam name="T">List element type.</typeparam>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.FriList`1.data">
+            <summary>
+            Deserialized list.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.FriList`1.serialized">
+            <summary>
+            Serialized list.
+            </summary>
+        </member>
+    </members>
+</doc>

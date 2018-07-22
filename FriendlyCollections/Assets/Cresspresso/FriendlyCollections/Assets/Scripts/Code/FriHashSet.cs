@@ -5,7 +5,7 @@
 	using System.Linq;
 	using MoreLinq;
 	using UnityEngine;
-	using MTLinq = Extensions.MainThreadLinq.MainThreadLinq;
+	using MTLinq = Extensions.MainThreadLinq;
 
 	#region FriHashSet
 

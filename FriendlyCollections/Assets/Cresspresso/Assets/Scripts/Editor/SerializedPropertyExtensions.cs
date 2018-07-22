@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace Cresspresso.Extensions.Editors
+namespace Cresspresso.Editor.Extensions
 {
 	/// <summary>
 	/// Extension methods relating to <see cref="SerializedProperty"/>.

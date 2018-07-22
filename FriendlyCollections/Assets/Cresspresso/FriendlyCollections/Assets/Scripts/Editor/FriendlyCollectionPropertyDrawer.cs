@@ -1,4 +1,4 @@
-﻿namespace Cresspresso.FriendlyCollections.Editors
+﻿namespace Cresspresso.FriendlyCollections.Editor
 {
 	using UnityEngine;
 	using UnityEditor;
@@ -31,14 +31,30 @@
 		#endregion
 		#region Constants
 
+		/// <summary>
+		/// Padding at top of list elements.
+		/// </summary>
 		protected const float elementPaddingTop = 1;
+
+		/// <summary>
+		/// Sum of top and bottom padding of list elements.
+		/// </summary>
 		protected static float elementSpacing { get { return elementPaddingTop + EditorGUIUtility.standardVerticalSpacing; } }
 
+		/// <summary>
+		/// Gets the position rect for drawing a list element.
+		/// Trims the padding values.
+		/// </summary>
+		/// <param name="totalPosition">Total position rect.</param>
+		/// <returns>Rect where the element should be drawn.</returns>
 		protected static Rect GetElementInnerRect(Rect totalPosition)
 		{
 			return new Rect(totalPosition.x, totalPosition.y + elementPaddingTop, totalPosition.width, totalPosition.height - elementSpacing);
 		}
 
+		/// <summary>
+		/// Height of the 'none' element. Used when the list has no elements.
+		/// </summary>
 		protected static float noneElementHeight { get { return EditorGUIUtility.singleLineHeight; } }
 
 		#endregion

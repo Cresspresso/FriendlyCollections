@@ -1,0 +1,417 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Assembly-CSharp-Editor</name>
+    </assembly>
+    <members>
+        <member name="T:Cresspresso.Editor.Extensions.SerializedPropertyExtensions">
+            <summary>
+            Extension methods relating to <see cref="T:UnityEditor.SerializedProperty"/>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.Editor.Extensions.SerializedPropertyExtensions.GetPropertyValue(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets the value of a <see cref="T:UnityEditor.SerializedProperty"/>. Does not work for complex types, e.g. arrays.
+            </summary>
+            <param name="property">Property to get the value of.</param>
+            <returns>Value stored in the property.</returns>
+            <exception cref="T:System.InvalidOperationException">Property type is not primitive.</exception>
+            <exception cref="T:System.NotImplementedException">This function has not been implemented for that possibly primitive property type.</exception>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriDictPData">
+            <summary>
+            <see cref="T:Cresspresso.FriendlyCollections.Editor.PersistentData"/> for <see cref="T:Cresspresso.FriendlyCollections.Editor.FriDictPropertyDrawer"/>.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriDictPData.fieldPathData">
+            <summary>
+            Property name of <see cref="T:Cresspresso.FriendlyCollections.FriDict`3"/>.serialized.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriDictPData.fieldPathPairKey">
+            <summary>
+            Property name of <see cref="F:Cresspresso.FriendlyCollections.FriDictPair`2.key"/>.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriDictPData.fieldPathPairValue">
+            <summary>
+            Property name of <see cref="F:Cresspresso.FriendlyCollections.FriDictPair`2.value"/>.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriDictPData.noneElementCollectionName">
+            <summary>
+            Type name of collection.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriDictPData.InitReorderableList">
+            <summary>
+            Overridden method <see cref="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.InitReorderableList"/>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriDictPData.Equals(UnityEditor.SerializedProperty,UnityEditor.SerializedProperty)">
+            <summary>
+            Compares the equality of two key properties.
+            <para>Override this method to compare complex and custom types.</para>
+            </summary>
+            <param name="propKeyA">First key property.</param>
+            <param name="propKeyB">Second key property.</param>
+            <returns><see langword="true"/> if the keys are equal.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriDictPData.CountKey(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Counts the number of times a certain key occurs in the serialized list.
+            </summary>
+            <param name="index">Index of the pair whose key we are comparing with.</param>
+            <param name="startIndex">Starting index to search from.</param>
+            <param name="endIndex">Index after which searching will stop.</param>
+            <returns>The number of times the key occurs.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriDictPData.CountKey(UnityEditor.SerializedProperty,System.Int32,System.Int32)">
+            <summary>
+            Counts the number of times a certain key occurs in the serialized list.
+            </summary>
+            <param name="propKey">Key property to compare with.</param>
+            <param name="startIndex">Starting index to search from.</param>
+            <param name="endIndex">Index after which searching will stop.</param>
+            <returns>The number of times the key occurs.</returns>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriDictPropertyDrawer">
+            <summary>
+            <see cref="T:UnityEditor.CustomPropertyDrawer"/> for <see cref="T:Cresspresso.FriendlyCollections.FriDict"/>.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriDictPropertyDrawer.persistence">
+            <summary>
+            Table of persistent data associated with properties.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriDictPropertyDrawer.GetPersistentData(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets persistent data associated with a property.
+            </summary>
+            <param name="property">The current property being drawn.</param>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriDictOfObjectsPData">
+            <summary>
+            <see cref="T:Cresspresso.FriendlyCollections.Editor.PersistentData"/> for <see cref="T:Cresspresso.FriendlyCollections.Editor.FriDictOfObjectsPropertyDrawer"/>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriDictOfObjectsPData.Equals(UnityEditor.SerializedProperty,UnityEditor.SerializedProperty)">
+            <summary>
+            Compares the equality of two key properties (where key type inherits <see cref="T:UnityEngine.Object"/>).
+            <para>Override this method to compare complex and custom types.</para>
+            </summary>
+            <param name="propKeyA">First key property.</param>
+            <param name="propKeyB">Second key property.</param>
+            <returns><see langword="true"/> if the keys are equal.</returns>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriDictOfObjectsPropertyDrawer">
+            <summary>
+            Friendly property drawer for <see cref="T:Cresspresso.FriendlyCollections.FriDict`3"/>
+            where TKey inherits <see cref="T:UnityEngine.Object"/>.
+            <para>Must be instantiated with the <see cref="T:UnityEditor.CustomPropertyDrawer"/> attribute.</para>
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriDictOfObjectsPropertyDrawer.persistence">
+            <summary>
+            Table of persistent data associated with properties.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriDictOfObjectsPropertyDrawer.GetPersistentData(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets persistent data associated with a property.
+            </summary>
+            <param name="property">The current property being drawn.</param>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData">
+            <summary>
+            Base class for <see cref="T:Cresspresso.FriendlyCollections.Editor.FriListPData"/> and <see cref="T:Cresspresso.FriendlyCollections.Editor.FriDictPData"/>.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.fieldPathData">
+            <summary>
+            Relative property path to the serialized array/list property to display.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.headerLabel">
+            <summary>
+            Gets the display label for the list header.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.noneElementCollectionName">
+            <summary>
+            Gets the name of the collection type, i.e. the word "List" in the phrase "List is Empty".
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.elementPaddingTop">
+            <summary>
+            Padding at top of list elements.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.elementSpacing">
+            <summary>
+            Sum of top and bottom padding of list elements.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.GetElementInnerRect(UnityEngine.Rect)">
+            <summary>
+            Gets the position rect for drawing a list element.
+            Trims the padding values.
+            </summary>
+            <param name="totalPosition">Total position rect.</param>
+            <returns>Rect where the element should be drawn.</returns>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.noneElementHeight">
+            <summary>
+            Height of the 'none' element. Used when the list has no elements.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.propData">
+            <summary>
+            Property for the serialized list of elements to display.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.reorderableList">
+            <summary>
+            Graphical list for displaying the serialized list.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.isExpanded">
+            <summary>
+            If true, the list will be drawn. If false, only the display label will be drawn.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.Reset(UnityEditor.SerializedProperty)">
+            <summary>
+            Overridden method <see cref="M:Cresspresso.FriendlyCollections.Editor.PersistentData.Reset(UnityEditor.SerializedProperty)"/>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.InitReorderableList">
+            <summary>
+            Creates a friendly <see cref="T:UnityEditorInternal.ReorderableList"/> based on a property.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPropertyDrawer`1">
+            <summary>
+            Base class for
+            <see cref="T:Cresspresso.FriendlyCollections.Editor.FriListPropertyDrawer"/>,
+            <see cref="T:Cresspresso.FriendlyCollections.Editor.FriDictPropertyDrawer"/>, and
+            <see cref="T:Cresspresso.FriendlyCollections.Editor.FriHashSetPropertyDrawer"/>.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPropertyDrawer`1.data">
+            <summary>
+            Persistent data for the current property.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPropertyDrawer`1.GetPersistentData(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets persistent data associated with a property.
+            </summary>
+            <param name="property">The current property being drawn.</param>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPropertyDrawer`1.Prepare(UnityEditor.SerializedProperty)">
+            <summary>
+            Prepares this class' <see cref="F:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPropertyDrawer`1.data"/>.
+            </summary>
+            <param name="property">The current property being drawn.</param>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPropertyDrawer`1.GetPropertyHeight(UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Unity script event.
+            (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.GetPropertyHeight.html">Link to Docs</a>)
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPropertyDrawer`1.OnGUI(UnityEngine.Rect,UnityEditor.SerializedProperty,UnityEngine.GUIContent)">
+            <summary>
+            Unity script event.
+            (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.OnGUI.html">Link to Docs</a>)
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPropertyDrawer`1.CanCacheInspectorGUI(UnityEditor.SerializedProperty)">
+            <summary>
+            Unity script event.
+            (<a href="https://docs.unity3d.com/ScriptReference/PropertyDrawer.CanCacheInspectorGUI.html">Link to Docs</a>)
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriHashSetPData">
+            <summary>
+            <see cref="T:Cresspresso.FriendlyCollections.Editor.PersistentData"/> for <see cref="T:Cresspresso.FriendlyCollections.Editor.FriHashSetPropertyDrawer"/>.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriHashSetPData.fieldPathData">
+            <summary>
+            Property name of <see cref="T:Cresspresso.FriendlyCollections.FriHashSet`1"/>.serialized.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.FriHashSetPData.noneElementCollectionName">
+            <summary>
+            Type name of collection.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriHashSetPData.InitReorderableList">
+            <summary>
+            Overridden method <see cref="M:Cresspresso.FriendlyCollections.Editor.FriendlyCollectionPData.InitReorderableList"/>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriHashSetPData.Equals(UnityEditor.SerializedProperty,UnityEditor.SerializedProperty)">
+            <summary>
+            Compares the equality of two element properties.
+            <para>Override this method to compare complex and custom types.</para>
+            </summary>
+            <param name="propA">First element property.</param>
+            <param name="propB">Second element property.</param>
+            <returns><see langword="true"/> if the elements are equal.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriHashSetPData.CountElement(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Counts the number of times a certain element occurs in the serialized list.
+            </summary>
+            <param name="index">Index of element property to compare with.</param>
+            <param name="startIndex">Starting index to search from.</param>
+            <param name="endIndex">Index after which searching will stop.</param>
+            <returns>The number of times the element occurs.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriHashSetPData.CountElement(UnityEditor.SerializedProperty,System.Int32,System.Int32)">
+            <summary>
+            Counts the number of times a certain element occurs in the serialized list.
+            </summary>
+            <param name="propElement">Element property to compare with.</param>
+            <param name="startIndex">Starting index to search from.</param>
+            <param name="endIndex">Index after which searching will stop.</param>
+            <returns>The number of times the element occurs.</returns>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriHashSetPropertyDrawer">
+            <summary>
+            <see cref="T:UnityEditor.CustomPropertyDrawer"/> for <see cref="T:Cresspresso.FriendlyCollections.FriHashSet"/>.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriHashSetPropertyDrawer.persistence">
+            <summary>
+            Table of persistent data associated with properties.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriHashSetPropertyDrawer.GetPersistentData(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets persistent data associated with a property.
+            </summary>
+            <param name="property">The current property being drawn.</param>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriHashSetOfObjectsPData">
+            <summary>
+            <see cref="T:Cresspresso.FriendlyCollections.Editor.PersistentData"/> for <see cref="T:Cresspresso.FriendlyCollections.Editor.FriHashSetOfObjectsPropertyDrawer"/>.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriHashSetOfObjectsPData.Equals(UnityEditor.SerializedProperty,UnityEditor.SerializedProperty)">
+            <summary>
+            Compares the equality of two element properties (where element type inherits <see cref="T:UnityEngine.Object"/>).
+            <para>Override this method to compare complex and custom types.</para>
+            </summary>
+            <param name="propA">First element property.</param>
+            <param name="propB">Second element property.</param>
+            <returns><see langword="true"/> if the elements are equal.</returns>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriHashSetOfObjectsPropertyDrawer">
+            <summary>
+            Friendly property drawer for <see cref="T:Cresspresso.FriendlyCollections.FriHashSet`1"/> of <see cref="T:UnityEngine.Object"/>.
+            <para>Must be instantiated with the <see cref="T:UnityEditor.CustomPropertyDrawer"/> attribute.</para>
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriHashSetOfObjectsPropertyDrawer.persistence">
+            <summary>
+            Table of persistent data associated with properties.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriHashSetOfObjectsPropertyDrawer.GetPersistentData(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets persistent data associated with a property.
+            </summary>
+            <param name="property">The current property being drawn.</param>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriListPData">
+            <summary>
+            <see cref="T:Cresspresso.FriendlyCollections.Editor.PersistentData"/> for <see cref="T:Cresspresso.FriendlyCollections.Editor.FriListPropertyDrawer"/>.
+            </summary>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.FriListPropertyDrawer">
+            <summary>
+            <see cref="T:UnityEditor.CustomPropertyDrawer"/> for <see cref="T:Cresspresso.FriendlyCollections.FriList"/>.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.FriListPropertyDrawer.persistence">
+            <summary>
+            Table of persistent data associated with properties.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.FriListPropertyDrawer.GetPersistentData(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets persistent data associated with a property.
+            </summary>
+            <param name="property">The current property being drawn.</param>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.PersistentData">
+            <summary>
+            Data associated with a <see cref="T:UnityEditor.SerializedProperty"/> which should persist between multiple editor frames.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.PersistentData.property">
+            <summary>
+            Property this data relates to.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.PersistentData.serializedObject">
+            <summary>
+            Serialized object of the property this data relates to.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.PersistentData.timeOfLastChange">
+            <summary>
+            Moment in time when the <see cref="M:Cresspresso.FriendlyCollections.Editor.PersistentData.OnChange"/> method was last called.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.PersistentData.OnChange">
+            <summary>
+            Called when the property is visible, to tell it not to expire.
+            </summary>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.PersistentData.expiryTime">
+            <summary>
+            Max time before data expiry.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.PersistentData.hasExpired">
+            <summary>
+            True if this data has not been updated recently, and can be disposed.
+            </summary>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.PersistentData.Reset(UnityEditor.SerializedProperty)">
+            <summary>
+            Initializes this persistent data.
+            </summary>
+            <param name="property">The property this data is associated with.</param>
+        </member>
+        <member name="T:Cresspresso.FriendlyCollections.Editor.PersistenceTable`1">
+            <summary>
+            Collection of <typeparamref name="TData"/> objects which are associated with <see cref="T:UnityEditor.SerializedProperty"/>s.
+            </summary>
+            <typeparam name="TData">Type of <see cref="T:Cresspresso.FriendlyCollections.Editor.PersistentData"/> stored for each <see cref="T:UnityEditor.SerializedProperty"/>.</typeparam>
+        </member>
+        <member name="F:Cresspresso.FriendlyCollections.Editor.PersistenceTable`1.persistence">
+            <summary>
+            Dictionary of <see cref="P:UnityEditor.SerializedProperty.propertyPath"/> keys and the data associated with the properties.
+            </summary>
+        </member>
+        <member name="P:Cresspresso.FriendlyCollections.Editor.PersistenceTable`1.Item(UnityEditor.SerializedProperty)">
+            <summary>
+            Gets the persistent data associated with a property.
+            </summary>
+            <param name="property">The current property.</param>
+            <returns>The persistent data associated with the property.</returns>
+        </member>
+        <member name="M:Cresspresso.FriendlyCollections.Editor.PersistenceTable`1.Clean">
+            <summary>
+            Cleans up any expired data.
+            </summary>
+        </member>
+    </members>
+</doc>

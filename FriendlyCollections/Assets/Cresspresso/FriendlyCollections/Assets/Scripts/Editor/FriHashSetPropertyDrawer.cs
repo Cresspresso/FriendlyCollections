@@ -1,9 +1,9 @@
-﻿namespace Cresspresso.FriendlyCollections.Editors
+﻿namespace Cresspresso.FriendlyCollections.Editor
 {
 	using System;
 	using UnityEngine;
 	using UnityEditor;
-	using Cresspresso.Extensions.Editors;
+	using Cresspresso.Editor.Extensions;
 
 	#region FriHashSetPData
 
@@ -15,7 +15,7 @@
 		#region Constants
 
 		/// <summary>
-		/// Property name of <see cref="FriHashSet{T}.serialized"/>.
+		/// Property name of <see cref="FriHashSet{T}"/>.serialized.
 		/// </summary>
 		protected override string fieldPathData { get { return "serialized"; } }
 
@@ -28,7 +28,7 @@
 		#region Methods
 
 		/// <summary>
-		/// Overridden method <see cref="FriendlyCollectionPData{TDataArgs}.OnInitReorderableList"/>.
+		/// Overridden method <see cref="FriendlyCollectionPData.InitReorderableList"/>.
 		/// </summary>
 		protected override void InitReorderableList()
 		{
@@ -85,7 +85,7 @@
 		/// <summary>
 		/// Counts the number of times a certain element occurs in the serialized list.
 		/// </summary>
-		/// <param name="index">Index of the pair whose element we are comparing with.</param>
+		/// <param name="index">Index of element property to compare with.</param>
 		/// <param name="startIndex">Starting index to search from.</param>
 		/// <param name="endIndex">Index after which searching will stop.</param>
 		/// <returns>The number of times the element occurs.</returns>
@@ -99,12 +99,12 @@
 		}
 
 		/// <summary>
-		/// Counts the number of times a certain key occurs in the serialized list.
+		/// Counts the number of times a certain element occurs in the serialized list.
 		/// </summary>
-		/// <param name="propKey">Key property to compare with.</param>
+		/// <param name="propElement">Element property to compare with.</param>
 		/// <param name="startIndex">Starting index to search from.</param>
 		/// <param name="endIndex">Index after which searching will stop.</param>
-		/// <returns>The number of times the key occurs.</returns>
+		/// <returns>The number of times the element occurs.</returns>
 		private int CountElement(SerializedProperty propElement, int startIndex = 0, int endIndex = int.MaxValue)
 		{
 			int count = 0;

@@ -1,8 +1,8 @@
-﻿namespace CresspressoDemos.FriendlyCollections.Editors
+﻿namespace CresspressoDemos.FriendlyCollections.Editor
 {
 	using UnityEngine;
 	using UnityEditor;
-	using Cresspresso.FriendlyCollections.Editors;
+	using Cresspresso.FriendlyCollections.Editor;
 
 	// Persistent data with overridden key equality method.
 	public class FDDemo3DictPData : FriDictPData

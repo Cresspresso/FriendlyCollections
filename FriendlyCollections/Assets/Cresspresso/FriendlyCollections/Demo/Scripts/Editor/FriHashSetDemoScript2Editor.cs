@@ -1,7 +1,7 @@
-﻿namespace CresspressoDemos.FriendlyCollections.Editors
+﻿namespace CresspressoDemos.FriendlyCollections.Editor
 {
 	using UnityEditor;
-	using Cresspresso.FriendlyCollections.Editors;
+	using Cresspresso.FriendlyCollections.Editor;
 
 	// Friendly property drawer for a FriHashSet<UnityEngine.Object> class.
 	[CustomPropertyDrawer(typeof(ObjectHashSet))]

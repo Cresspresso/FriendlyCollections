@@ -1,4 +1,4 @@
-﻿namespace Cresspresso.FriendlyCollections.Editors
+﻿namespace Cresspresso.FriendlyCollections.Editor
 {
 	using System;
 	using System.Collections.Generic;
@@ -57,10 +57,6 @@
 		/// Initializes this persistent data.
 		/// </summary>
 		/// <param name="property">The property this data is associated with.</param>
-		/// <param name="callback">
-		/// Action to do after the reset.
-		/// First parameter is this object.
-		/// </param>
 		public virtual void Reset(SerializedProperty property)
 		{
 			this.property = property;
@@ -94,10 +90,6 @@
 		/// Gets the persistent data associated with a property.
 		/// </summary>
 		/// <param name="property">The current property.</param>
-		/// <param name="onResetCallback">
-		/// Action to do with data when it is reset.
-		/// First parameter is the data object that was reset.
-		/// </param>
 		/// <returns>The persistent data associated with the property.</returns>
 		public TData this[SerializedProperty property]
 		{
