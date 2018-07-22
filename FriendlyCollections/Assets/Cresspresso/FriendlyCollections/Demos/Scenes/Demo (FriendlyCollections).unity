@@ -360,10 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   group:
     alpha:
-      serialized:
-      - {fileID: 583068495}
-      - {fileID: 170076733}
-      - {fileID: 800265831}
+      serialized: []
     beta:
       serialized:
       - {fileID: 0}
@@ -560,17 +557,7 @@ MonoBehaviour:
       serialized: []
     gamma:
       serialized: []
-  array:
-  - serialized: []
-  - serialized:
-    - key: 0
-      value: Hi
-    - key: 1
-      value: how
-    - key: 2
-      value: are
-    - key: 3
-      value: ya
+  array: []
 --- !u!4 &1677053293
 Transform:
   m_ObjectHideFlags: 0
