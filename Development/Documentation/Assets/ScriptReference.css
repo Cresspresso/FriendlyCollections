@@ -1,0 +1,9 @@
+
+.def > p {
+    padding-left: 2em;
+    margin: 0;
+}
+
+.def > p:first-child {
+    padding-left: 0;
+}

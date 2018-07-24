@@ -10,8 +10,11 @@
 	public static class DictionaryExtensions
 	{
 		/// <summary>
-		/// Removes all entries where the key satisfies the predicate.
+		/// Removes dictionary entries where the key satisfies the predicate.
 		/// </summary>
+		/// <param name="dictionary">Dictionary to remove entries from.</param>
+		/// <param name="predicate">Function that returns true if a given key should be removed.</param>
+		/// <returns>Number of keys that were removed.</returns>
 		public static int RemoveAll<TKey, TValue>(
 			this Dictionary<TKey, TValue> dictionary,
 			Func<TKey, bool> predicate)
@@ -20,8 +23,11 @@
 		}
 
 		/// <summary>
-		/// Removes all entries that satisfy the predicate.
+		/// Removes dictionary entries that satisfy the predicate.
 		/// </summary>
+		/// <param name="dictionary">Dictionary to remove entries from.</param>
+		/// <param name="predicate">Function that returns true if a given entry should be removed.</param>
+		/// <returns>Number of keys that were removed.</returns>
 		public static int RemoveAllEntries<TKey, TValue>(
 			this Dictionary<TKey, TValue> dictionary,
 			Func<KeyValuePair<TKey, TValue>, bool> predicate

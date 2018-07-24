@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cresspresso - Scripting API: Extensions.DictionaryExtensions.RemoveAllEntries</title>
+        <link href="../../../../Assets/ScriptReference.css" type="text/css" rel="stylesheet"/>
+    </head>
+    <body>
+        <main>
+            <section>
+                <h1><a href="./">DictionaryExtensions</a>.RemoveAllEntries</h1>
+                <div id="Info">static method</div>
+            </section>
+
+            <article id="Definition">
+                <h2>Definition</h2>
+                <div class="def">
+                    <p>public static int <b>RemoveAllEntries</b>&lt;TKey, TValue&gt;(</p>
+                    <p>this <a class="msdn" href="https://msdn.microsoft.com/en-us/library/xfhwa508(v=vs.110).aspx">Dictionary</a>&lt;TKey, TValue&gt; <b>dictionary</b>,</p>
+                    <p><a class="msdn" href="https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx">Func</a>&lt;<a class="msdn" href="https://msdn.microsoft.com/en-us/library/5tbh8a42(v=vs.110).aspx">KeyValuePair</a>&lt;TKey, TValue&gt;, bool&gt; <b>predicate</b>)</p>
+                </div>
+            </article>
+
+            <article id="Parameters">
+                <h2>Parameters</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>dictionary</td>
+                            <td>Dictionary to remove entries from.</td>
+                        </tr>
+                        <tr>
+                            <td>predicate</td>
+                            <td>Function that returns true if a given entry should be removed.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+
+            <article id="Returns">
+                <h2>Returns</h2>
+                <p>Number of keys that were removed.</p>
+            </article>
+
+            <article id="Description">
+                <h2>Description</h2>
+                <p>Removes dictionary entries where the key satisfies the predicate.</p>
+            </article>
+
+            <article id="SeeAlso">
+                <h2>See Also</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td><a href="./RemoveAllEntries.html">RemoveAllEntries</a></td>
+                            <td>Removes all entries that satisfy the predicate.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </main>
+    </body>
+</html>
