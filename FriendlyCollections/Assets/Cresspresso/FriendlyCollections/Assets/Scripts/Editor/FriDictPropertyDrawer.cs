@@ -3,7 +3,7 @@
 	using System;
 	using UnityEngine;
 	using UnityEditor;
-	using Cresspresso.Editor.Extensions;
+	using Cresspresso.Extensions.Editor;
 
 	#region FriDictPData
 
