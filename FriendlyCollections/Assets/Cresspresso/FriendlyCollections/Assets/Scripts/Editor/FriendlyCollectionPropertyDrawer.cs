@@ -1,4 +1,4 @@
-﻿namespace Cresspresso.FriendlyCollections.Editor
+﻿namespace CresspressoEditor.FriendlyCollections
 {
 	using UnityEngine;
 	using UnityEditor;

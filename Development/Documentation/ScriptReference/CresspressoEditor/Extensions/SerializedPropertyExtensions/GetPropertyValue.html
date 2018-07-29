@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Cresspresso - Scripting API: Cresspresso.Extensions.DictionaryExtensions.RemoveAll</title>
+        <title>Cresspresso - Scripting API: CresspressoEditor.Extensions.SerializedPropertyExtensions.GetPropertyValue</title>
         <link href="../../../../Assets/ScriptReference.css" type="text/css" rel="stylesheet"/>
     </head>
     <body>
@@ -15,7 +15,7 @@
 
         <main>
             <section>
-                <h1><a href="./">DictionaryExtensions</a>.RemoveAll</h1>
+                <h1><a href="./">SerializedPropertyExtensions</a>.GetPropertyValue</h1>
                 <div id="Info">static method</div>
             </section>
 
@@ -24,7 +24,11 @@
                     <h2>Description</h2>
                     <a class="permalink" title="Permalink" href="#Description">#</a>
                 </div>
-                <p>Removes dictionary entries where the key satisfies the predicate.</p>
+                <p>
+                    Gets the value of a
+                    <a class="cref unity" href="https://docs.unity3d.com/ScriptReference/SerializedProperty.html" title="UnityEditor.SerializedProperty">SerializedProperty</a>.
+                    Does not work for complex types, e.g. arrays.
+                </p>
             </article>
 
             <article id="Definition">
@@ -32,23 +36,19 @@
                     <h2>Definition</h2>
                     <a class="permalink" title="Permalink" href="#Definition">#</a>
                 </div>
-                <code class="def">
+                <div class="def">
                     <p>
                         public static
-                        int
-                        <span class="name">RemoveAll</span>
-                        &lt;TKey, TValue&gt;(
+                        object
+                        <span class="name">GetPropertyValue</span>
+                        (
                     </p>
                     <p>
                         this
-                        <a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/xfhwa508.aspx" title="System.Collections.Dictionary&lt;TKey, TValue&gt;">Dictionary</a>&lt;TKey, TValue&gt;
-                        <span class="param">dictionary</span>,
+                        <a class="cref unity" href="https://docs.unity3d.com/ScriptReference/SerializedProperty.html" title="UnityEditor.SerializedProperty">SerializedProperty</a>
+                        <span class="param">property</span>)
                     </p>
-                    <p>
-                        <a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" title="System.Func&lt;T, TResult&gt;">Func</a>&lt;TKey, bool&gt;
-                        <span class="param">predicate</span>)
-                    </p>
-                </code>
+                </div>
             </article>
 
             <article id="Parameters">
@@ -66,14 +66,9 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code><a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/xfhwa508.aspx" title="System.Collections.Dictionary&lt;TKey, TValue&gt;">Dictionary</a>&lt;TKey, TValue&gt;</code></td>
-                            <td><span class="param">dictionary</span></td>
-                            <td>Dictionary to remove entries from.</td>
-                        </tr>
-                        <tr>
-                            <td><code><a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" title="System.Func&lt;T, TResult&gt;">Func</a>&lt;TKey, bool&gt;</code></td>
-                            <td><span class="param">predicate</span></td>
-                            <td>Function that returns true if a given key should be removed.</td>
+                            <td><code><a class="cref unity" href="https://docs.unity3d.com/ScriptReference/SerializedProperty.html" title="UnityEditor.SerializedProperty">SerializedProperty</a></code></td>
+                            <td><span class="param">property</span></td>
+                            <td>Property to get the value of.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -93,23 +88,33 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>int</code></td>
-                            <td>Number of keys that were removed.</td>
+                            <td><code>object</code></td>
+                            <td>Value stored in the property.</td>
                         </tr>
                     </tbody>
                 </table>
             </article>
 
-            <article id="SeeAlso">
+            <article id="Exceptions">
                 <div class="ah">
-                    <h2>See Also</h2>
-                    <a class="permalink" title="Permalink" href="#SeeAlso">#</a>
+                    <h2>Exceptions</h2>
+                    <a class="permalink" title="Permalink" href="#Exceptions">#</a>
                 </div>
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Description/Cause</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <td><a href="./RemoveAllEntries.html">RemoveAllEntries</a></td>
-                            <td>Removes dictionary entries that satisfy the predicate.</td>
+                            <td><a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/system.invalidoperationexception.aspx">InvalidOperationException</a></td>
+                            <td>Property type is not primitive.</td>
+                        </tr>
+                        <tr>
+                            <td><a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/system.notimplementedexception.aspx">NotImplementedException</a></td>
+                            <td>This function has not been implemented for that possibly primitive property type.</td>
                         </tr>
                     </tbody>
                 </table>

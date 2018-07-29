@@ -1,9 +1,10 @@
-﻿namespace Cresspresso.FriendlyCollections.Editor
+﻿namespace CresspressoEditor.FriendlyCollections
 {
 	using System;
 	using UnityEngine;
 	using UnityEditor;
-	using Cresspresso.Extensions.Editor;
+	using Cresspresso.FriendlyCollections;
+	using CresspressoEditor.Extensions;
 
 	#region FriHashSetPData
 

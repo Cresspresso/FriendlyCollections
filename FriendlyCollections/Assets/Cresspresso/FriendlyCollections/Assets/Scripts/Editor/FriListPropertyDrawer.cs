@@ -1,6 +1,7 @@
-﻿namespace Cresspresso.FriendlyCollections.Editor
+﻿namespace CresspressoEditor.FriendlyCollections
 {
 	using UnityEditor;
+	using Cresspresso.FriendlyCollections;
 
 	#region FriListPData
 

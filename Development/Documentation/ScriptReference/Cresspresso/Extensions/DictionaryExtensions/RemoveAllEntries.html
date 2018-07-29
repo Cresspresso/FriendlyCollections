@@ -1,35 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Cresspresso - Scripting API: Extensions.DictionaryExtensions.RemoveAllEntries</title>
+        <title>Cresspresso - Scripting API: Cresspresso.Extensions.DictionaryExtensions.RemoveAllEntries</title>
         <link href="../../../../Assets/ScriptReference.css" type="text/css" rel="stylesheet"/>
     </head>
     <body>
+        <header>
+            <div id="site-title"><a href="../../../../">Cresspresso</a></div>
+            <nav>
+                <a href="../../../../">Home</a>
+                <a class="current" href="../../../">Scripting API</a>
+            </nav>
+        </header>
+
         <main>
             <section>
                 <h1><a href="./">DictionaryExtensions</a>.RemoveAllEntries</h1>
                 <div id="Info">static method</div>
             </section>
 
-            <article id="Definition">
-                <h2>Definition</h2>
-                <div class="def">
-                    <p>public static int <b>RemoveAllEntries</b>&lt;TKey, TValue&gt;(</p>
-                    <p>this <a class="msdn" href="https://msdn.microsoft.com/en-us/library/xfhwa508(v=vs.110).aspx">Dictionary</a>&lt;TKey, TValue&gt; <b>dictionary</b>,</p>
-                    <p><a class="msdn" href="https://msdn.microsoft.com/en-us/library/bb549151(v=vs.110).aspx">Func</a>&lt;<a class="msdn" href="https://msdn.microsoft.com/en-us/library/5tbh8a42(v=vs.110).aspx">KeyValuePair</a>&lt;TKey, TValue&gt;, bool&gt; <b>predicate</b>)</p>
+            <article id="Description">
+                <div class="ah">
+                    <h2>Description</h2>
+                    <a class="permalink" title="Permalink" href="#Description">#</a>
                 </div>
+                <p>Removes dictionary entries that satisfy the predicate.</p>
+            </article>
+
+            <article id="Definition">
+                <div class="ah">
+                    <h2>Definition</h2>
+                    <a class="permalink" title="Permalink" href="#Definition">#</a>
+                </div>
+                <code class="def">
+                    <p>
+                        public static
+                        int
+                        <span class="name">RemoveAllEntries</span>
+                        &lt;TKey, TValue&gt;(
+                    </p>
+                    <p>
+                        this
+                        <a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/xfhwa508.aspx" title="System.Collections.Dictionary&lt;TKey, TValue&gt;">Dictionary</a>&lt;TKey, TValue&gt;
+                        <span class="param">dictionary</span>,
+                    </p>
+                    <p>
+                        <a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" title="System.Func&lt;T, TResult&gt;">Func</a>&lt;
+                            <a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/5tbh8a42.aspx" title="System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;">KeyValuePair</a>&lt;TKey, TValue&gt;
+                            , bool&gt;
+                        <span class="param">predicate</span>)
+                    </p>
+                </code>
             </article>
 
             <article id="Parameters">
-                <h2>Parameters</h2>
+                <div class="ah">
+                    <h2>Parameters</h2>
+                    <a class="permalink" title="Permalink" href="#Parameters">#</a>
+                </div>
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
-                            <td>dictionary</td>
+                            <td><code><a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/xfhwa508.aspx" title="System.Collections.Dictionary&lt;TKey, TValue&gt;">Dictionary</a>&lt;TKey, TValue&gt;</code></td>
+                            <td><span class="param">dictionary</span></td>
                             <td>Dictionary to remove entries from.</td>
                         </tr>
                         <tr>
-                            <td>predicate</td>
+                            <td>
+                                <code>
+                                    <a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/bb549151.aspx" title="System.Func&lt;T, TResult&gt;">Func</a>&lt;
+                                        <a class="cref msdn" href="https://msdn.microsoft.com/en-us/library/5tbh8a42.aspx" title="System.Collections.Generic.KeyValuePair&lt;TKey, TValue&gt;">KeyValuePair</a>&lt;TKey, TValue&gt;
+                                        , bool&gt;
+                                </code>
+                            </td>
+                            <td><span class="param">predicate</span></td>
                             <td>Function that returns true if a given entry should be removed.</td>
                         </tr>
                     </tbody>
@@ -37,22 +88,36 @@
             </article>
 
             <article id="Returns">
-                <h2>Returns</h2>
-                <p>Number of keys that were removed.</p>
-            </article>
-
-            <article id="Description">
-                <h2>Description</h2>
-                <p>Removes dictionary entries where the key satisfies the predicate.</p>
+                <div class="ah">
+                    <h2>Returns</h2>
+                    <a class="permalink" title="Permalink" href="#Returns">#</a>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>int</code></td>
+                            <td>Number of keys that were removed.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </article>
 
             <article id="SeeAlso">
-                <h2>See Also</h2>
+                <div class="ah">
+                    <h2>See Also</h2>
+                    <a class="permalink" title="Permalink" href="#SeeAlso">#</a>
+                </div>
                 <table>
                     <tbody>
                         <tr>
-                            <td><a href="./RemoveAllEntries.html">RemoveAllEntries</a></td>
-                            <td>Removes all entries that satisfy the predicate.</td>
+                            <td><a href="./RemoveAll.html">RemoveAll</a></td>
+                            <td>Removes dictionary entries where the key satisfies the predicate.</td>
                         </tr>
                     </tbody>
                 </table>

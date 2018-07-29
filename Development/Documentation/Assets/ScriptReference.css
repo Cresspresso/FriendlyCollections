@@ -1,4 +1,38 @@
 
+#site-title {
+    font-size: 1.3em;
+}
+
+nav .current {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
+}
+
+h2 {
+    font-size: 1.7em;
+}
+
+
+/* Article Header Container */
+.ah {
+    margin: 2em 0 0.5em 0;
+}
+
+.ah * {
+    display: inline;
+}
+
+.ah a {
+    text-decoration: none;
+    vertical-align: super;
+}
+
+
+/* Function Definition */
 .def > p {
     padding-left: 2em;
     margin: 0;
@@ -6,4 +40,23 @@
 
 .def > p:first-child {
     padding-left: 0;
+}
+
+.def .param {
+    font-weight: bold;
+}
+
+.def .name {
+    font-weight: bold;
+}
+
+
+/* Table */
+table {
+    border-collapse: collapse;
+}
+
+table td {
+    border: 1px solid #888;
+    padding: 0.5em 1em;
 }
